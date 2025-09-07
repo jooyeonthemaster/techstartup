@@ -1,0 +1,15 @@
+# Next.js Environment Variables
+# Copy this content to your .env.local file
+
+# Development
+NODE_ENV=development
+
+# Database (if needed in the future)
+# DATABASE_URL=
+
+# API Keys (if needed in the future)
+# NEXT_PUBLIC_API_URL=
+
+# Authentication (if needed in the future)
+# NEXTAUTH_SECRET=
+# NEXTAUTH_URL=http://localhost:3000
