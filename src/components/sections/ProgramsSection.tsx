@@ -1,338 +1,405 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { Badge } from '@/components/ui/badge'
+import { useState, useEffect, useRef } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { 
-  GraduationCap, 
-  Briefcase, 
-  Users, 
-  Trophy, 
+import { Badge } from '@/components/ui/badge'
+import { programCategories, testimonials, upcomingEvents } from '@/data/programs'
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Star,
   Calendar,
   Clock,
+  DollarSign,
+  GraduationCap,
   MapPin,
-  ArrowRight,
-  Star,
-  CheckCircle
+  Sparkles,
+  Trophy,
+  Users
 } from 'lucide-react'
 
 export default function ProgramsSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, margin: '-100px' })
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeTab, setActiveTab] = useState('accelerator')
+  const [hoveredProgram, setHoveredProgram] = useState<number | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const sectionRef = useRef(null)
+  const [autoPlay, setAutoPlay] = useState(true)
 
-  const programs = [
-    {
-      id: 'startup-bootcamp',
-      title: 'Tech Startup Bootcamp',
-      subtitle: '기술 창업 집중 과정',
-      description: '4주간의 집중적인 기술 창업 교육 프로그램으로, 아이디어부터 MVP 개발까지 전 과정을 경험할 수 있습니다.',
-      duration: '4주',
-      participants: '20명',
-      level: '초급-중급',
-      features: [
-        '실전 프로젝트 기반 학습',
-        '1:1 멘토링 시스템',
-        '투자자 피칭 기회',
-        '네트워킹 이벤트'
-      ],
-      icon: GraduationCap,
-      gradient: 'from-blue-500/10 to-cyan-500/10',
-      iconBg: 'from-blue-500 to-cyan-500',
-      status: '모집중',
-      startDate: '2025.03.15'
-    },
-    {
-      id: 'investment-readiness',
-      title: 'Investment Readiness Program',
-      subtitle: '투자 유치 준비 과정',
-      description: '투자 유치를 위한 체계적인 준비 과정으로, IR 피칭부터 실제 투자 협상까지 실무 중심의 교육을 제공합니다.',
-      duration: '6주',
-      participants: '15명',
-      level: '중급-고급',
-      features: [
-        '실제 투자자와의 만남',
-        '사업계획서 완성',
-        '재무 모델링 교육',
-        '법무 이슈 대응'
-      ],
-      icon: Briefcase,
-      gradient: 'from-green-500/10 to-emerald-500/10',
-      iconBg: 'from-green-500 to-emerald-500',
-      status: '진행중',
-      startDate: '2025.02.20'
-    },
-    {
-      id: 'leadership-academy',
-      title: 'Startup Leadership Academy',
-      subtitle: '스타트업 리더십 아카데미',
-      description: '스타트업 CEO와 핵심 임원을 위한 리더십 개발 프로그램으로, 조직 관리와 전략적 사고력을 향상시킵니다.',
-      duration: '8주',
-      participants: '12명',
-      level: '고급',
-      features: [
-        '성공한 CEO 멘토링',
-        '케이스 스터디 분석',
-        '조직 문화 구축',
-        '위기 관리 전략'
-      ],
-      icon: Users,
-      gradient: 'from-purple-500/10 to-pink-500/10',
-      iconBg: 'from-purple-500 to-pink-500',
-      status: '대기중',
-      startDate: '2025.04.10'
-    },
-    {
-      id: 'global-expansion',
-      title: 'Global Expansion Accelerator',
-      subtitle: '글로벌 진출 가속화 프로그램',
-      description: '해외 시장 진출을 목표로 하는 스타트업을 위한 특별 프로그램으로, 현지 파트너십 구축을 지원합니다.',
-      duration: '12주',
-      participants: '10명',
-      level: '고급',
-      features: [
-        '해외 시장 분석',
-        '현지 파트너 매칭',
-        '법인 설립 지원',
-        '마케팅 현지화'
-      ],
-      icon: Trophy,
-      gradient: 'from-orange-500/10 to-red-500/10',
-      iconBg: 'from-orange-500 to-red-500',
-      status: '모집예정',
-      startDate: '2025.05.01'
+  // Initialize tab from URL parameter
+  useEffect(() => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam && programCategories[tabParam as keyof typeof programCategories]) {
+      setActiveTab(tabParam)
     }
-  ]
+  }, [searchParams])
 
-  const benefits = [
-    {
-      icon: Star,
-      title: '전문가 멘토링',
-      description: '업계 최고 전문가들의 1:1 멘토링'
-    },
-    {
-      icon: Users,
-      title: '네트워킹',
-      description: '동기들과의 평생 네트워크 구축'
-    },
-    {
-      icon: Trophy,
-      title: '성과 인증',
-      description: '프로그램 수료증 및 성과 인증'
-    },
-    {
-      icon: CheckCircle,
-      title: '사후 지원',
-      description: '프로그램 종료 후 지속적인 지원'
-    }
-  ]
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case '모집중': return 'bg-green-500/10 text-green-600 border-green-500/20'
-      case '진행중': return 'bg-blue-500/10 text-blue-600 border-blue-500/20'
-      case '대기중': return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20'
-      case '모집예정': return 'bg-gray-500/10 text-gray-600 border-gray-500/20'
-      default: return 'bg-gray-500/10 text-gray-600 border-gray-500/20'
-    }
+  // Handle tab change with URL update
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab)
+    const url = new URL(window.location.href)
+    url.searchParams.set('tab', newTab)
+    router.replace(url.pathname + url.search, { scroll: false })
   }
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (autoPlay) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % testimonials.length)
+      }, 5000)
+      return () => clearInterval(interval)
+    }
+  }, [autoPlay])
+
   return (
-    <section id="programs" ref={containerRef} className="py-24 bg-gradient-to-b from-background to-accent/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <Badge variant="outline" className="mb-4 px-4 py-2 bg-background/50 backdrop-blur-sm">
-            <GraduationCap className="w-4 h-4 mr-2" />
-            Programs
+    <section id="programs" ref={sectionRef} className="relative py-24 overflow-hidden">
+      {/* Dynamic gradient background - changed to blue tones */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234C9BDF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}
+        />
+      </div>
+
+      {/* Animated particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <div className={`text-center max-w-4xl mx-auto mb-16 transform transition-all duration-1000 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <Badge className="mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white border-0 px-4 py-2">
+            <Sparkles className="w-4 h-4 mr-2" />
+            PROGRAMS & INITIATIVES
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              체계적인 교육으로
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              성공을 가속화합니다
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            성장을 가속화하는
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 mt-2">
+              프로그램
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            각 성장 단계에 맞춘 전문 교육 프로그램을 통해 
-            여러분의 비즈니스가 한 단계 더 도약할 수 있도록 지원합니다.
+          <p className="text-xl text-gray-300">
+            스타트업의 성장 단계에 맞춘 체계적인 지원 프로그램을 제공합니다
           </p>
-        </motion.div>
+        </div>
 
-        {/* Programs Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-20">
-          {programs.map((program, index) => {
-            const Icon = program.icon
+        {/* Category Tabs */}
+        <div className={`flex flex-wrap justify-center gap-4 mb-12 transform transition-all duration-1000 delay-200 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          {Object.entries(programCategories).map(([key, category]) => {
+            const Icon = category.icon
             return (
-              <motion.div
-                key={program.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group"
+              <button
+                key={key}
+                onClick={() => handleTabChange(key)}
+                className={`group relative px-6 py-4 rounded-2xl font-medium transition-all duration-300 ${
+                  activeTab === key
+                    ? 'bg-white text-gray-900 shadow-2xl scale-105'
+                    : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
+                }`}
               >
-                <Card className={`p-8 h-full bg-gradient-to-br ${program.gradient} border-border/50 hover:border-primary/20 transition-all duration-500 hover:shadow-xl relative overflow-hidden`}>
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="relative z-10">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div className={`w-14 h-14 bg-gradient-to-r ${program.iconBg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                      <Badge 
-                        variant="outline" 
-                        className={`${getStatusColor(program.status)} backdrop-blur-sm`}
-                      >
-                        {program.status}
-                      </Badge>
-                    </div>
-
-                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
-                      {program.title}
-                    </h3>
-                    <p className="text-sm text-primary font-medium mb-4">
-                      {program.subtitle}
-                    </p>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {program.description}
-                    </p>
-
-                    {/* Program Details */}
-                    <div className="grid grid-cols-3 gap-4 mb-6 p-4 rounded-lg bg-background/50 backdrop-blur-sm">
-                      <div className="text-center">
-                        <Clock className="w-4 h-4 text-primary mx-auto mb-1" />
-                        <div className="text-xs text-muted-foreground">기간</div>
-                        <div className="text-sm font-semibold text-foreground">{program.duration}</div>
-                      </div>
-                      <div className="text-center">
-                        <Users className="w-4 h-4 text-primary mx-auto mb-1" />
-                        <div className="text-xs text-muted-foreground">인원</div>
-                        <div className="text-sm font-semibold text-foreground">{program.participants}</div>
-                      </div>
-                      <div className="text-center">
-                        <GraduationCap className="w-4 h-4 text-primary mx-auto mb-1" />
-                        <div className="text-xs text-muted-foreground">레벨</div>
-                        <div className="text-sm font-semibold text-foreground">{program.level}</div>
-                      </div>
-                    </div>
-
-                    {/* Features */}
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-foreground mb-3">주요 특징</h4>
-                      <ul className="space-y-2">
-                        {program.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                            <CheckCircle className="w-3 h-3 text-primary mr-2 flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        시작: {program.startDate}
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="group-hover:bg-primary/10 transition-colors duration-300"
-                      >
-                        자세히 보기
-                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-5 h-5 ${
+                    activeTab === key ? 'text-purple-600' : 'text-white'
+                  }`} />
+                  <span>{category.title}</span>
+                  {activeTab === key && (
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400/20 to-pink-400/20 animate-pulse" />
+                  )}
+                </div>
+              </button>
             )
           })}
         </div>
 
-        {/* Benefits Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="bg-gradient-to-r from-primary/5 via-background to-primary/5 rounded-3xl p-8 lg:p-12 border border-primary/10 mb-16"
-        >
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4 text-foreground">
-              프로그램 참여 혜택
-            </h3>
-            <p className="text-muted-foreground">
-              단순한 교육을 넘어 실질적인 성장을 위한 종합적인 지원
+        {/* Active Category Content */}
+        <div className={`mb-16 transform transition-all duration-1000 delay-300 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <div className="text-center mb-8">
+            <p className="text-lg text-gray-300">
+              {programCategories[activeTab as keyof typeof programCategories].description}
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => {
-              const Icon = benefit.icon
+
+          {/* Program Cards Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {programCategories[activeTab as keyof typeof programCategories].programs.map((program, index) => {
+              const Icon = (program as any).icon
               return (
-                <motion.div
-                  key={benefit.title}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                  className="text-center group"
+                <div
+                  key={index}
+                  className="group relative"
+                  onMouseEnter={() => setHoveredProgram(index)}
+                  onMouseLeave={() => setHoveredProgram(null)}
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-8 h-8 text-primary-foreground" />
-                  </div>
-                  <h4 className="font-semibold text-foreground mb-2">
-                    {benefit.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+                  <Card className="relative bg-white/95 backdrop-blur-sm border-0 p-8 h-full hover:transform hover:scale-105 transition-all duration-300 shadow-2xl">
+                    {/* Status Badge */}
+                    {(program as any).status && (
+                      <div className="absolute -top-3 right-6">
+                        <Badge className={`px-3 py-1 ${
+                          (program as any).status === 'recruiting' 
+                            ? 'bg-green-500 text-white' 
+                            : (program as any).status === 'ongoing'
+                            ? 'bg-blue-500 text-white'
+                            : (program as any).status === 'upcoming'
+                            ? 'bg-orange-500 text-white'
+                            : 'bg-purple-500 text-white'
+                        }`}>
+                          {(program as any).status === 'recruiting' ? '모집중' 
+                            : (program as any).status === 'ongoing' ? '진행중'
+                            : (program as any).status === 'upcoming' ? '예정'
+                            : '상시'}
+                        </Badge>
+                      </div>
+                    )}
+
+                    {/* Icon with gradient */}
+                    <div className="mb-6">
+                      <div className={`w-16 h-16 bg-gradient-to-br ${(program as any).gradient} rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                      {(program as any).title}
+                    </h3>
+
+                    {/* Meta Info */}
+                    <div className="flex flex-wrap gap-3 mb-4">
+                      {'duration' in program && (program as any).duration && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {(program as any).duration}
+                        </div>
+                      )}
+                      {'participants' in program && (program as any).participants && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Users className="w-4 h-4 mr-1" />
+                          {(program as any).participants}
+                        </div>
+                      )}
+                      {'funding' in program && (program as any).funding && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <DollarSign className="w-4 h-4 mr-1" />
+                          {(program as any).funding}
+                        </div>
+                      )}
+                      {'prize' in program && (program as any).prize && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Trophy className="w-4 h-4 mr-1" />
+                          {(program as any).prize}
+                        </div>
+                      )}
+                      {'sessions' in program && (program as any).sessions && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          {(program as any).sessions}
+                        </div>
+                      )}
+                      {'type' in program && (program as any).type && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Users className="w-4 h-4 mr-1" />
+                          {(program as any).type}
+                        </div>
+                      )}
+                      {'level' in program && (program as any).level && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <GraduationCap className="w-4 h-4 mr-1" />
+                          {(program as any).level}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {(program as any).tags.map((tag: string, idx: number) => (
+                        <Badge key={idx} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    {/* Features */}
+                    <ul className="space-y-2 mb-6">
+                      {(program as any).features.slice(0, 3).map((feature: string, idx: number) => (
+                        <li key={idx} className="flex items-start text-sm text-gray-700">
+                          <Star className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Deadline and CTA removed */}
+                  </Card>
+                </div>
               )
             })}
           </div>
-        </motion.div>
+        </div>
 
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="text-center"
-        >
-          <h3 className="text-2xl font-bold mb-4 text-foreground">
-            지금 바로 신청하세요
+        {/* Testimonials Carousel */}
+        <div className={`mb-16 transform transition-all duration-1000 delay-400 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <h3 className="text-3xl font-bold text-center mb-10 text-white">
+            참가자 후기
           </h3>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            제한된 인원으로 진행되는 프리미엄 교육 프로그램입니다. 
-            조기 마감될 수 있으니 서둘러 신청해주세요.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" className="bg-gradient-to-r from-primary to-primary/80 px-8">
-                프로그램 신청하기
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="lg" className="px-8">
-                <Calendar className="w-5 h-5 mr-2" />
-                설명회 참석하기
-              </Button>
-            </motion.div>
+          
+          <div className="relative max-w-4xl mx-auto">
+            <Card className="bg-white/95 backdrop-blur-sm p-8 md:p-12 shadow-2xl border-0">
+              <div className="relative overflow-hidden">
+                <div className="flex transition-transform duration-500" 
+                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+                  {testimonials.map((testimonial, index) => (
+                    <div key={index} className="w-full flex-shrink-0 px-4">
+                      <div className="text-center">
+                        <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto mb-6" />
+                        <p className="text-xl text-gray-700 mb-6 italic">
+                          "{(testimonial as any).content}"
+                        </p>
+                        <h4 className="text-lg font-bold text-gray-900">
+                          {(testimonial as any).name}
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          {(testimonial as any).company} | {(testimonial as any).program}
+                        </p>
+                        {(testimonial as any).investment && (
+                          <Badge className="mt-4 bg-green-100 text-green-700">
+                            투자 유치: {(testimonial as any).investment}
+                          </Badge>
+                        )}
+                        {(testimonial as any).achievement && (
+                          <Badge className="mt-4 bg-blue-100 text-blue-700">
+                            {(testimonial as any).achievement}
+                          </Badge>
+                        )}
+                        {(testimonial as any).recognition && (
+                          <Badge className="mt-4 bg-purple-100 text-purple-700">
+                            {(testimonial as any).recognition}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Carousel Controls */}
+              <div className="flex items-center justify-center gap-4 mt-8">
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <div className="flex gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        currentSlide === index ? 'w-8 bg-purple-600' : 'bg-gray-300'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={() => setCurrentSlide((prev) => (prev + 1) % testimonials.length)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </Card>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Upcoming Events */}
+        <div className={`transform transition-all duration-1000 delay-500 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <h3 className="text-3xl font-bold text-center mb-10 text-white">
+            다가오는 이벤트
+          </h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {upcomingEvents.map((event, index) => (
+              <Card key={index} className="bg-white/95 backdrop-blur-sm p-6 hover:shadow-2xl transition-all duration-300 border-0 group">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <Badge className="mb-2 bg-purple-100 text-purple-700">
+                      {event.type}
+                    </Badge>
+                    <h4 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                      {event.title}
+                    </h4>
+                  </div>
+                  <Calendar className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2" />
+                    {event.date}
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    {event.location}
+                  </div>
+                </div>
+                <Button variant="outline" className="w-full mt-4 group-hover:bg-purple-600 group-hover:text-white transition-all">
+                  일정 등록
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section removed */}
       </div>
     </section>
   )
