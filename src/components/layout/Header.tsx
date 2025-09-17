@@ -7,25 +7,17 @@ import {
   ChevronDown,
   Menu,
   X,
-  Zap,
   Users,
   Briefcase,
   Newspaper,
-  Mail,
   Home,
-  Award,
   BookOpen,
-  Rocket,
-  Shield,
   TrendingUp,
-  Calendar,
   Bell,
-  MessageCircle,
   Building2,
-  HandshakeIcon,
-  Brain,
-  Heart,
-  Sparkles
+  Target,
+  UserPlus,
+  CreditCard
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -41,25 +33,28 @@ import { cn } from '@/lib/utils'
 
 const menuItems = [
   {
+    title: '홈',
+    href: '/',
+    icon: Home,
+    submenu: []
+  },
+  {
     title: '협회소개',
     href: '/about',
     icon: Building2,
     submenu: [
-      { title: '협회 소개', href: '/about', icon: Home, description: '기술벤처스타트업협회를 소개합니다' },
-      { title: '임원진', href: '/#executives', icon: Award, description: '협회 임원진을 소개합니다' },
+      { title: '설립목적', href: '/about', icon: Target, description: '협회의 6대 목적과 설립 배경' },
+      { title: '조직도', href: '/about/organization', icon: Users, description: '협회 조직 구성 및 임원진' },
     ]
   },
   {
-    title: '스타트업 지원',
-    href: '/startup',
-    icon: Rocket,
+    title: '사업안내',
+    href: '/business',
+    icon: Briefcase,
     submenu: [
-      { title: '엑셀러레이팅', href: '/#programs?tab=accelerator', icon: TrendingUp, description: '스타트업 성장 가속화 프로그램' },
-      { title: '투자 연계', href: '/#services', icon: Briefcase, description: '투자자와 스타트업을 연결합니다' },
-      { title: '멘토링', href: '/#programs?tab=mentoring', icon: Brain, description: '전문가 1:1 멘토링 프로그램' },
-      { title: '네트워킹', href: '/#programs?tab=networking', icon: HandshakeIcon, description: '스타트업 간 교류 프로그램' },
-      { title: '교육 프로그램', href: '/#programs?tab=education', icon: BookOpen, description: '창업 역량 강화 교육' },
-      { title: '공간 지원', href: '/startup/space', icon: Building2, description: '사무 공간 및 인프라 지원' },
+      { title: '채용지원', href: '/business/employment', icon: Users, description: '서울시 일자리 사업 및 채용 지원' },
+      { title: '투자조합', href: '/business/investment', icon: TrendingUp, description: '개인투자조합 운영 및 스타트업 투자' },
+      { title: '산학협력', href: '/business/cooperation', icon: BookOpen, description: '대학-산업체 연계 협력 사업' },
     ]
   },
   {
@@ -67,28 +62,18 @@ const menuItems = [
     href: '/news',
     icon: Newspaper,
     submenu: [
-      { title: '공지사항', href: '/news/notice', icon: Bell, description: '협회 공지사항을 확인하세요' },
-      { title: '보도자료', href: '/news/press', icon: Newspaper, description: '언론 보도 자료' },
-      { title: '이벤트', href: '/news/events', icon: Calendar, description: '협회 주최 이벤트 정보' },
-      { title: '성공사례', href: '/news/success', icon: Award, description: '회원사 성공 스토리' },
-      { title: '뉴스레터', href: '/news/newsletter', icon: Mail, description: '정기 뉴스레터 구독' },
+      { title: '공지사항', href: '/news/notice', icon: Bell, description: '협회 공지사항 및 중요 알림' },
+      { title: '언론보도', href: '/news/press', icon: Newspaper, description: '협회 관련 언론 보도 자료' },
     ]
   },
   {
-    title: '회원사',
-    href: '/members',
-    icon: Shield,
+    title: '회원가입',
+    href: '/membership',
+    icon: UserPlus,
     submenu: [
-      { title: '회원사 소개', href: '/members', icon: Building2, description: '협회 회원사를 소개합니다' },
-      { title: '회원 혜택', href: '/members#benefits', icon: Heart, description: '회원사 전용 혜택 안내' },
-      { title: '가입 안내', href: '/members#join', icon: Sparkles, description: '회원 가입 절차 안내' },
+      { title: '모집대상', href: '/membership', icon: Target, description: '회원 모집 대상 및 자격 요건' },
+      { title: '협회비', href: '/membership/fees', icon: CreditCard, description: '협회비 안내 및 납부 방법' },
     ]
-  },
-  {
-    title: '문의하기',
-    href: '/contact',
-    icon: MessageCircle,
-    submenu: []
   }
 ]
 

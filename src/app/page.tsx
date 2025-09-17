@@ -1,21 +1,21 @@
 import { Suspense } from 'react'
 import HeroSection from '@/components/sections/HeroSection'
-import AboutSection from '@/components/sections/AboutSection'
-import ServicesSection from '@/components/sections/ServicesSection'
-import ProgramsSection from '@/components/sections/ProgramsSection'
-import ExecutivesSection from '@/components/sections/ExecutivesSection'
+import PurposeSection from '@/components/sections/PurposeSection'
+import MembershipTargetSection from '@/components/sections/MembershipTargetSection'
+import BusinessPlan2025Section from '@/components/sections/BusinessPlan2025Section'
+import MembershipFeesSection from '@/components/sections/MembershipFeesSection'
 import ContactSection from '@/components/sections/ContactSection'
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
-      <ServicesSection />
+      <PurposeSection />
+      <MembershipTargetSection />
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-        <ProgramsSection />
+        <BusinessPlan2025Section />
       </Suspense>
-      <ExecutivesSection />
+      <MembershipFeesSection />
       <ContactSection />
     </>
   )

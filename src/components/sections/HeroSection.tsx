@@ -13,24 +13,11 @@ export default function HeroSection() {
   const [isTyping, setIsTyping] = useState(true)
   const sectionRef = useRef<HTMLDivElement>(null)
   
-  // Counter animation states
-  const [counters, setCounters] = useState({
-    members: 0,
-    investment: 0,
-    years: 0
-  })
 
   const words = ['성장 파트너', '혁신 동반자', '성공 가이드']
 
   useEffect(() => {
     setIsLoaded(true)
-    
-    // Start counter animation after component loads
-    const timer = setTimeout(() => {
-      animateCounters()
-    }, 1000)
-    
-    return () => clearTimeout(timer)
   }, [])
 
   // Mouse move effect
@@ -78,34 +65,6 @@ export default function HeroSection() {
     }
   }, [displayText, isTyping, currentWord])
 
-  // Number counter animation
-  const animateCounters = () => {
-    const duration = 2000
-    const steps = 60
-    const interval = duration / steps
-    
-    let currentStep = 0
-    const timer = setInterval(() => {
-      currentStep++
-      const progress = currentStep / steps
-      
-      setCounters({
-        members: Math.floor(200 * progress),
-        investment: Math.floor(50 * progress),
-        years: Math.floor(10 * progress)
-      })
-      
-      if (currentStep >= steps) {
-        clearInterval(timer)
-      }
-    }, interval)
-  }
-
-  const stats = [
-    { icon: Users, value: `${counters.members}+`, label: '회원사', delay: 0.2, gradient: 'from-blue-400 to-cyan-400' },
-    { icon: TrendingUp, value: `₩${counters.investment}억`, label: '누적 투자유치', delay: 0.4, gradient: 'from-purple-400 to-pink-400' },
-    { icon: Globe, value: `${counters.years}년`, label: '역사와 전통', delay: 0.6, gradient: 'from-orange-400 to-red-400' }
-  ]
 
   const floatingIcons = [
     { Icon: Code, delay: 0, duration: 20 },
@@ -275,47 +234,6 @@ export default function HeroSection() {
             </Button>
           </div>
 
-          {/* 3D Animated Stats Cards */}
-          <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto perspective-1000">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon
-              return (
-                <div 
-                  key={index}
-                  className={`group transform transition-all duration-1000 hover:scale-105 ${
-                    isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                  }`}
-                  style={{ 
-                    transitionDelay: `${800 + stat.delay * 1000}ms`,
-                    transform: 'rotateX(0deg) rotateY(0deg)',
-                    transformStyle: 'preserve-3d'
-                  }}
-                  onMouseEnter={(e) => {
-                    const card = e.currentTarget
-                    card.style.transform = 'rotateX(-10deg) rotateY(10deg)'
-                  }}
-                  onMouseLeave={(e) => {
-                    const card = e.currentTarget
-                    card.style.transform = 'rotateX(0deg) rotateY(0deg)'
-                  }}
-                >
-                  <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20">
-                    {/* Gradient background animation */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-20 rounded-3xl transition-opacity duration-300`} />
-                    
-                    <Icon className="w-10 h-10 mx-auto mb-3 text-white group-hover:scale-110 transition-transform duration-300" />
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-white/80">{stat.label}</div>
-                    
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-full transition-all duration-1000" />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
         </div>
       </div>
 
