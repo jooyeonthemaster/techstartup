@@ -126,31 +126,45 @@ export default function AboutSection() {
 
   const timeline = [
     { 
-      year: '2010', 
-      title: '협회 설립', 
-      description: '기술벤처스타트업협회 공식 출범',
+      year: '2025.01', 
+      title: '협회 창립총회', 
+      description: '(사)기술벤처스타트업협회 창립총회 개최',
       icon: Sparkles,
-      gradient: 'from-gray-400 to-gray-500',
+      gradient: 'from-blue-500 to-cyan-500',
       isFirst: true 
     },
     { 
-      year: '2015', 
-      title: '100개 회원사', 
-      description: '첫 100개 회원사 달성 및 투자유치 500억',
+      year: '2025.04', 
+      title: '사단법인 설립', 
+      description: '사단법인 설립 및 정기총회, 서울시 민간기업맞춤형 매력일자리 사업 수주',
       icon: TrendingUp,
-      gradient: 'from-blue-400 to-blue-500'
+      gradient: 'from-purple-500 to-pink-500'
     },
     { 
-      year: '2020', 
-      title: '글로벌 진출', 
-      description: '해외 파트너십 체결 및 글로벌 프로그램 시작',
+      year: '2025.05', 
+      title: '대학 업무협약', 
+      description: '서울대 인공지능 연구원 및 동국대학교 업무협약 체결',
       icon: Globe,
-      gradient: 'from-purple-400 to-purple-500'
+      gradient: 'from-green-500 to-emerald-500'
     },
     { 
-      year: '2025', 
-      title: '현재', 
-      description: '500+ 회원사와 함께 새로운 도약',
+      year: '2025.06', 
+      title: '개인투자조합 출범', 
+      description: '개인투자조합 공식 출범',
+      icon: Target,
+      gradient: 'from-orange-500 to-red-500'
+    },
+    { 
+      year: '2025.08', 
+      title: '창업 지원 교육', 
+      description: '외국인 유학생 창업 지원 교육프로그램 운영 시작',
+      icon: TrendingUp,
+      gradient: 'from-indigo-500 to-purple-500'
+    },
+    { 
+      year: '2025.09', 
+      title: '투자대회 개최', 
+      description: '개인투자조합 결성 총회 및 투자대회 개최',
       icon: Target,
       gradient: 'from-blue-600 to-cyan-600',
       isCurrent: true 
@@ -377,7 +391,7 @@ export default function AboutSection() {
             </h3>
             
             <p className="text-sm text-gray-500 max-w-lg mx-auto">
-              혁신과 성장의 15년 기록
+              2025년 새로운 시작의 기록
             </p>
           </div>
 

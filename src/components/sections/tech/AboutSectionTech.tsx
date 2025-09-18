@@ -149,7 +149,7 @@ export default function AboutSectionTech() {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <div className="bg-muted/30 p-6 rounded border border-border font-mono text-sm">
-              <div className="text-muted-foreground mb-2">{`// 2010년 설립 이래 15년간`}</div>
+              <div className="text-muted-foreground mb-2">{`// 2025년 새롭게 출범한 혁신의 시작`}</div>
               <div className="text-foreground">
                 <span className="text-accent">const</span> mission = {'{'}
                 <br />

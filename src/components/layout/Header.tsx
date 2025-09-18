@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
   ChevronDown,
@@ -43,7 +44,7 @@ const menuItems = [
     href: '/about',
     icon: Building2,
     submenu: [
-      { title: '설립목적', href: '/about', icon: Target, description: '협회의 6대 목적과 설립 배경' },
+      { title: '설립목적', href: '/about', icon: Target, description: '협회의 미션, 비전 및 핵심가치' },
       { title: '조직도', href: '/about/organization', icon: Users, description: '협회 조직 구성 및 임원진' },
     ]
   },
@@ -116,18 +117,9 @@ export default function Header() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="group flex items-center space-x-3">
-              <div className="relative w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center transform transition-all duration-300 group-hover:scale-110">
-                <span className="text-white font-bold text-xl">T</span>
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
-              </div>
-              <div>
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  기술벤처스타트업협회
-                </h1>
-                <p className="text-xs text-muted-foreground hidden sm:block">
-                  Tech Venture Startup Association
-                </p>
+            <Link href="/" className="group flex items-center">
+              <div className="relative w-32 h-12 sm:w-40 sm:h-14 rounded-xl overflow-hidden transform transition-all duration-300 group-hover:scale-105">
+                <Image src="/images/logo.png" alt="KTVSA Logo" fill sizes="(max-width: 640px) 160px, 200px" className="object-contain" priority />
               </div>
             </Link>
           </div>
@@ -210,12 +202,8 @@ export default function Header() {
                 {/* Mobile Menu Header */}
                 <div className="p-6 border-b bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
-                      <span className="text-white font-bold text-xl">T</span>
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-semibold">기술벤처스타트업협회</h2>
-                      <p className="text-xs text-muted-foreground">Tech Venture Startup Association</p>
+                    <div className="relative w-32 h-12 rounded-xl overflow-hidden">
+                      <Image src="/images/logo.png" alt="KTVSA Logo" fill sizes="200px" className="object-contain" />
                     </div>
                   </div>
                 </div>

@@ -153,20 +153,6 @@ export default function ContactSection() {
 
   return (
     <section id="contact" ref={sectionRef} className="relative py-24 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30" />
-      
-      {/* Pattern Overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30L0 0M60 60L30 30M30 30L60 0M0 60L30 30' stroke='%23000' stroke-width='0.5' fill='none' opacity='0.1'/%3E%3C/svg%3E")`,
-          backgroundSize: '60px 60px'
-        }} />
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 -right-20 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -409,63 +395,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Enhanced Map Section */}
-        <div className={`mt-16 transform transition-all duration-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`} style={{ transitionDelay: '600ms' }}>
-          <Card className="relative overflow-hidden p-0 border-0 shadow-2xl">
-            {/* Map Container */}
-            <div className="relative bg-gradient-to-br from-slate-100 to-slate-200 h-[500px]">
-              {/* Animated Map Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10" />
-              
-              {/* Map Content */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl animate-bounce">
-                    <MapPin className="w-12 h-12 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">서울특별시 강남구</h3>
-                  <p className="text-gray-600 mb-1">테헤란로 123, 15층</p>
-                  <p className="text-sm text-muted-foreground mb-6">강남역 3번 출구에서 도보 5분</p>
-                  
-                  <div className="flex flex-wrap justify-center gap-3">
-                    <Button variant="outline" className="group">
-                      <Navigation className="w-4 h-4 mr-2 group-hover:rotate-45 transition-transform" />
-                      네이버 지도로 보기
-                    </Button>
-                    <Button variant="outline" className="group">
-                      <Globe className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
-                      구글 지도로 보기
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Decorative Elements */}
-              <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl" />
-              <div className="absolute bottom-10 right-10 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl" />
-            </div>
-
-            {/* Info Bar */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
-              <div className="container mx-auto flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
-                  <span className="font-medium">주차 가능 (2시간 무료)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  <span className="font-medium">방문 전 예약 필수</span>
-                </div>
-                <Button className="bg-white text-primary hover:bg-white/90">
-                  방문 예약하기
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
+      {/* Map section removed as requested */}
       </div>
     </section>
   )

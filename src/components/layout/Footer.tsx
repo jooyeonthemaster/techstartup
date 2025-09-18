@@ -100,7 +100,7 @@ export default function Footer() {
             </div>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               대한민국 기술 벤처 생태계의 성장과 발전을 위해 
-              2010년 설립된 비영리 사단법인입니다. 
+              2025년 새롭게 출범한 비영리 사단법인입니다. 
               혁신적인 기술 스타트업의 성공을 지원합니다.
             </p>
             
@@ -108,7 +108,7 @@ export default function Footer() {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
                 <Phone className="w-4 h-4 text-blue-400" />
-                <span>02-1234-5678</span>
+                <span>010-3721-0204</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
                 <Mail className="w-4 h-4 text-blue-400" />
@@ -116,7 +116,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
                 <MapPin className="w-4 h-4 text-blue-400" />
-                <span>서울특별시 강남구 테헤란로 123</span>
+                <span>서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호</span>
               </div>
             </div>
 

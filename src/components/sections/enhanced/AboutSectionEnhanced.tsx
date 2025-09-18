@@ -149,9 +149,9 @@ export default function AboutSectionEnhanced() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            2010년 설립 이래, <span className="text-primary font-semibold">15년간</span> 대한민국 기술벤처스타트업 생태계의 
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-semibold"> 핵심 허브</span>로서 
-            혁신적인 기업들의 성장과 발전을 지원해왔습니다.
+            2025년 <span className="text-primary font-semibold">새롭게 출범한</span> 기술벤처스타트업협회는 
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-semibold"> 혁신의 중심</span>에서 
+            기술 스타트업의 성장과 글로벌 진출을 선도하고 있습니다.
           </motion.p>
 
           {/* Achievement Stats */}
@@ -338,5 +338,6 @@ export default function AboutSectionEnhanced() {
     </SectionTransition>
   )
 }
+
 
 

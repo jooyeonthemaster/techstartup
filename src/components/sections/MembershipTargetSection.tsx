@@ -69,27 +69,25 @@ export default function MembershipTargetSection() {
   }, [])
 
   return (
-    <section id="membership" className="relative py-20 bg-white dark:bg-gray-900 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 via-transparent to-purple-50 dark:from-blue-900/20 dark:via-transparent dark:to-purple-900/20" />
-        <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-30" />
-      </div>
+    <section id="membership" className="relative pt-0 pb-20 overflow-hidden">
 
       <div className="container mx-auto px-4 relative">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium mb-4">
-            <Users className="w-4 h-4 mr-2" />
-            회원 모집 대상
+        {/* CTA moved to top */}
+        <div className="text-center mb-10">
+          <div className="inline-flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="/membership/apply"
+              className="px-7 py-3 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 shadow-[0_10px_30px_-10px_rgba(59,130,246,0.6)] hover:from-blue-700 hover:via-cyan-600 hover:to-purple-700 transition-all"
+            >
+              협회 가입 신청하기
+            </a>
+            <a
+              href="/membership/fees"
+              className="px-7 py-3 rounded-xl text-base font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-600 bg-white/60 dark:bg-white/10 backdrop-blur-md transition-all"
+            >
+              협회비 안내 보기
+            </a>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            함께 성장할 동반자를 찾습니다
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            기술 혁신과 창업 생태계 발전에 기여할 수 있는 전문가들을 모집합니다.
-            다양한 배경과 전문성을 가진 분들의 참여를 환영합니다.
-          </p>
         </div>
 
         {/* Target Cards */}
@@ -108,16 +106,24 @@ export default function MembershipTargetSection() {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-transparent overflow-hidden group-hover:-translate-y-2 h-full">
-                  {/* Gradient Border Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${target.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`} />
-                  <div className="absolute inset-[1px] bg-white dark:bg-gray-800 rounded-2xl" />
+                <div className="relative rounded-2xl p-8 border border-white/20 hover:border-white/30 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)] transition-all group-hover:-translate-y-0.5 h-full">
+                  {/* Top glossy highlight */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 to-transparent" />
+                  {/* Bottom soft shadow gradient */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/5 to-transparent" />
+                  {/* Light sweep on hover */}
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                    <div className="absolute -inset-y-4 -left-1/2 w-2/3 bg-gradient-to-r from-white/0 via-white/30 to-white/0 rotate-12 translate-x-[-140%] group-hover:translate-x-[220%] transition-transform duration-700 ease-out" />
+                  </div>
                   
                   {/* Content */}
                   <div className="relative z-10 h-full flex flex-col">
-                    {/* Icon */}
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${target.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    {/* Icon with subtle radial glow */}
+                    <div className="relative mb-6">
+                      <div className="absolute -z-10 -top-2 left-0 w-24 h-24 rounded-full bg-primary/20 blur-2xl" />
+                      <div className="w-16 h-16 rounded-xl grid place-items-center border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md">
+                        <Icon className="w-8 h-8 text-primary" />
+                      </div>
                     </div>
 
                     {/* Title */}
@@ -126,7 +132,7 @@ export default function MembershipTargetSection() {
                     </h3>
 
                     {/* Subtitle */}
-                    <div className={`text-sm font-semibold text-${target.color}-600 dark:text-${target.color}-400 mb-4`}>
+                    <div className="text-sm font-semibold text-muted-foreground mb-4">
                       {target.subtitle}
                     </div>
 
@@ -136,76 +142,48 @@ export default function MembershipTargetSection() {
                     </p>
 
                     {/* Decorative Element */}
-                    <div className="absolute bottom-4 right-4 w-12 h-12 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                      <Icon className="w-full h-full text-gray-400" />
+                    <div className="absolute bottom-4 right-4 w-12 h-12 opacity-10">
+                      <Icon className="w-full h-full text-foreground/10" />
                     </div>
                   </div>
-
-                  {/* Hover Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${target.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Benefits Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-white text-center">
-          <h3 className="text-2xl md:text-3xl font-bold mb-6">
-            회원 혜택
-          </h3>
+        {/* Benefits Section - glass & subtle */}
+        <div className="rounded-3xl p-8 md:p-12 text-center border border-white/20 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)]">
+          <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">회원 혜택</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                <Brain className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
+                <Brain className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="text-lg font-semibold mb-2">전문 네트워킹</h4>
-              <p className="text-white/80">산·학·연 전문가들과의 네트워킹 기회 제공</p>
+              <h4 className="text-lg font-semibold text-foreground mb-2">전문 네트워킹</h4>
+              <p className="text-muted-foreground">산·학·연 전문가들과의 네트워킹 기회 제공</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                <TrendingUp className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
+                <TrendingUp className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="text-lg font-semibold mb-2">투자 기회</h4>
-              <p className="text-white/80">개인투자조합을 통한 투자 참여 기회</p>
+              <h4 className="text-lg font-semibold text-foreground mb-2">투자 기회</h4>
+              <p className="text-muted-foreground">개인투자조합을 통한 투자 참여 기회</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                <BookOpen className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
+                <BookOpen className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="text-lg font-semibold mb-2">학술 활동</h4>
-              <p className="text-white/80">기술창업 관련 학술세미나 및 연구 참여</p>
+              <h4 className="text-lg font-semibold text-foreground mb-2">학술 활동</h4>
+              <p className="text-muted-foreground">기술창업 관련 학술세미나 및 연구 참여</p>
             </div>
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            지금 바로 참여하세요
-          </h3>
-          <div className="inline-flex flex-col sm:flex-row gap-4">
-            <a
-              href="/membership"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              회원가입 신청하기
-            </a>
-            <a
-              href="/membership/fees"
-              className="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105"
-            >
-              협회비 안내 보기
-            </a>
-          </div>
-        </div>
+        {/* Bottom CTA removed - moved to top */}
       </div>
 
-      {/* Background Decorations */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/4 w-3 h-3 bg-blue-400 rounded-full animate-ping" />
-      <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '1s' }} />
+      
     </section>
   )
 }

@@ -35,8 +35,8 @@ import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const contactInfo = {
-  address: '서울특별시 강남구 테헤란로 123 테크빌딩 15층',
-  phone: '02-1234-5678',
+  address: '서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호',
+  phone: '010-3721-0204',
   fax: '02-1234-5679',
   email: 'info@ktvsa.or.kr',
   hours: '평일 09:00 - 18:00',
@@ -192,10 +192,9 @@ export default function ContactPage() {
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <Tabs defaultValue="contact" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12">
               <TabsTrigger value="contact">문의하기</TabsTrigger>
               <TabsTrigger value="faq">자주 묻는 질문</TabsTrigger>
-              <TabsTrigger value="location">오시는 길</TabsTrigger>
             </TabsList>
 
             {/* Contact Tab */}
@@ -481,53 +480,7 @@ export default function ContactPage() {
               </div>
             </TabsContent>
 
-            {/* Location Tab */}
-            <TabsContent value="location" className="mt-8">
-              <div className="max-w-5xl mx-auto">
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-                    오시는 길
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    기술벤처스타트업협회 본사 위치 안내
-                  </p>
-                </div>
-
-                <Card className="overflow-hidden shadow-xl">
-                  <div className="aspect-video bg-gray-200 dark:bg-gray-700 relative">
-                    {/* Map placeholder */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <MapPin className="w-12 h-12 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
-                        <p className="text-gray-600 dark:text-gray-400">지도 영역</p>
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h3 className="font-semibold mb-3">주소</h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-2">
-                          {contactInfo.address}
-                        </p>
-                        <Button variant="outline" className="mb-4">
-                          <MapPin className="mr-2 h-4 w-4" />
-                          네이버 지도로 보기
-                        </Button>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-3">대중교통</h3>
-                        <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                          <p>🚇 지하철: 2호선 강남역 3번 출구 도보 5분</p>
-                          <p>🚌 버스: 간선 140, 144, 145 / 지선 3412, 4412</p>
-                          <p>🚗 주차: 건물 내 주차장 이용 (2시간 무료)</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
+            {/* Location tab removed as requested */}
           </Tabs>
         </div>
       </section>

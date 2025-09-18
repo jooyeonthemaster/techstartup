@@ -65,112 +65,88 @@ export default function PurposeSection() {
   }, [])
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-gray-100/50 dark:bg-grid-gray-800/50 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+    <section className="relative pt-0 pb-24 overflow-hidden">
+      {/* Subtle background with soft vignette and grid */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,_hsl(var(--foreground)/0.06),_transparent_60%)] dark:bg-[radial-gradient(1200px_600px_at_50%_-10%,_hsl(var(--foreground)/0.12),_transparent_60%)]" />
+        <div className="absolute inset-0 bg-grid-gray-100/40 dark:bg-grid-gray-800/30 [mask-image:radial-gradient(ellipse_at_center,rgba(0,0,0,.8),transparent_75%)]" />
       </div>
 
       <div className="container mx-auto px-4 relative">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium mb-4">
-            <Target className="w-4 h-4 mr-2" />
-            협회의 6대 목적
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            급변하는 글로벌 기술혁신 환경 속에서
+        <div className="text-center mb-14">
+          <h2 className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md text-foreground/90 dark:text-foreground/85 text-base md:text-2xl font-bold shadow-sm">
+            <Target className="w-5 h-5 md:w-6 md:h-6" />
+            <span className="tracking-wide">협회의 6대 목적</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            (사)기술벤처스타트업협회는 대한민국의 기술벤처기업 성장 발전과 
-            기술스타트업의 발굴 육성을 위해 2025년 3월 서울시를 주무관청으로 출범했습니다.
+          <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-3xl mx-auto">
+            기술벤처 생태계를 위한 핵심 미션
+          </p>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground/90 max-w-3xl mx-auto">
+            혁신의 본질에 집중하는 정제된 목표로, 지속가능한 성장을 지원합니다.
           </p>
         </div>
 
-        {/* Purpose Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {/* Purpose Grid (Glassmorphism cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {purposes.map((purpose, index) => {
             const Icon = purpose.icon
             const isVisible = visibleItems.includes(index)
-            
+
             return (
               <div
                 key={index}
                 data-index={index}
                 data-purpose-item
                 className={`group relative transform transition-all duration-700 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Card Background */}
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-transparent overflow-hidden group-hover:-translate-y-2">
-                  {/* Gradient Border Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${purpose.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`} />
-                  <div className="absolute inset-[1px] bg-white dark:bg-gray-800 rounded-2xl" />
-                  
-                  {/* Content */}
-                  <div className="relative z-10">
-                    {/* Icon */}
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${purpose.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
-
-                    {/* Number Badge */}
-                    <div className="absolute top-4 right-4">
-                      <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${purpose.gradient} flex items-center justify-center text-white font-bold text-sm`}>
-                        {index + 1}
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
-                      {purpose.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {purpose.description}
-                    </p>
-
-                    {/* Decorative Elements */}
-                    <div className="absolute bottom-0 right-0 w-20 h-20 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                      <Icon className="w-full h-full text-gray-400" />
+                <div className="relative rounded-2xl p-7 md:p-8 border border-white/20 hover:border-white/30 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)] transition-all group-hover:-translate-y-0.5">
+                  {/* Top glossy highlight */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 to-transparent" />
+                  {/* Bottom soft shadow gradient */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/5 to-transparent" />
+                  {/* Light sweep on hover */}
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                    <div className="absolute -inset-y-4 -left-1/2 w-2/3 bg-gradient-to-r from-white/0 via-white/30 to-white/0 rotate-12 translate-x-[-140%] group-hover:translate-x-[220%] transition-transform duration-700 ease-out" />
+                  </div>
+                  {/* Top-right number chip */}
+                  <div className="absolute top-4 right-4">
+                    <div className="w-8 h-8 rounded-full grid place-items-center text-xs font-semibold text-foreground/80 bg-white/60 dark:bg-white/10 border border-white/30">
+                      {index + 1}
                     </div>
                   </div>
 
-                  {/* Hover Effect Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${purpose.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
+                  {/* Icon with subtle radial glow */}
+                  <div className="relative mb-5">
+                    <div className="absolute -z-10 -top-2 left-0 w-20 h-20 rounded-full bg-primary/20 blur-2xl" />
+                    <div className="w-14 h-14 rounded-xl grid place-items-center border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md">
+                      <Icon className="w-7 h-7 text-primary" />
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] text-foreground mb-2">
+                    {purpose.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    {purpose.description}
+                  </p>
+
+                  {/* Subtle corner mark */}
+                  <div className="pointer-events-none absolute -bottom-4 -right-4 w-28 h-28 rounded-2xl border border-white/10" />
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="inline-flex flex-col sm:flex-row gap-4">
-            <a
-              href="/about"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              협회소개 자세히 보기
-            </a>
-            <a
-              href="/membership"
-              className="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105"
-            >
-              회원가입 안내
-            </a>
-          </div>
-        </div>
+        
       </div>
-
-      {/* Background Decorations */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl" />
-      <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-      <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
     </section>
   )
 }

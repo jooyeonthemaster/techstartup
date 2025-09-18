@@ -63,3 +63,32 @@ export function ParallaxSection({ children, className = '', id, speed = 0.5 }: P
     </motion.section>
   )
 }
+
+interface SectionBackgroundProps {
+  children: React.ReactNode
+  id?: string
+  className?: string
+  // preset: 섹션별 명확한 배경 전환을 위한 프리셋 키
+  preset?: 'hero' | 'purpose' | 'membership' | 'business' | 'fees' | 'contact'
+}
+
+export function SectionBackground({ children, id, className = '', preset = 'purpose' }: SectionBackgroundProps) {
+  const base = 'relative overflow-hidden'
+
+  const map: Record<string, string> = {
+    hero: 'bg-[#0a0f1c] text-white',
+    purpose: 'bg-gradient-to-b from-white to-slate-50 dark:from-gray-950 dark:to-gray-900',
+    membership: 'bg-[radial-gradient(1200px_600px_at_50%_-10%,_hsl(var(--primary)/0.06),_transparent_60%)] dark:bg-[radial-gradient(1200px_600px_at_50%_-10%,_hsl(var(--primary)/0.12),_transparent_60%)]',
+    business: 'bg-gradient-to-br from-slate-50 via-blue-50/40 to-purple-50/40 dark:from-gray-950 dark:via-blue-950/20 dark:to-purple-950/20',
+    fees: 'bg-slate-50 dark:bg-gray-950',
+    contact: 'bg-gradient-to-b from-white to-slate-50 dark:from-gray-950 dark:to-gray-900'
+  }
+
+  return (
+    <section id={id} className={`${base} ${map[preset]} ${className}`}>
+      {/* Grain/Glow overlays for glass aesthetic */}
+      <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,rgba(0,0,0,.8),transparent_75%)]" />
+      {children}
+    </section>
+  )
+}

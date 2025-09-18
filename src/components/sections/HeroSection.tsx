@@ -1,39 +1,20 @@
 'use client'
 
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, ChevronDown, Sparkles, TrendingUp, Users, Globe, Code, Zap, Rocket } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+
+const words = ['AI/DX 솔루션', '스타트업 액셀러레이터', '지·산·학 협력']
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentWord, setCurrentWord] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
-  const sectionRef = useRef<HTMLDivElement>(null)
-  
-
-  const words = ['성장 파트너', '혁신 동반자', '성공 가이드']
 
   useEffect(() => {
     setIsLoaded(true)
-  }, [])
-
-  // Mouse move effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        setMousePosition({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100
-        })
-      }
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
   // Typing animation
@@ -65,18 +46,10 @@ export default function HeroSection() {
     }
   }, [displayText, isTyping, currentWord])
 
-
-  const floatingIcons = [
-    { Icon: Code, delay: 0, duration: 20 },
-    { Icon: Rocket, delay: 5, duration: 25 },
-    { Icon: Zap, delay: 10, duration: 22 },
-    { Icon: Globe, delay: 15, duration: 28 }
-  ]
-
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Professional Background with Image and Dynamic Overlay */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background with image and minimal overlay */}
+      <div className="absolute inset-0">
         {/* Background Image */}
         <div 
           className="absolute inset-0"
@@ -88,200 +61,127 @@ export default function HeroSection() {
           }}
         />
         
-        {/* Professional Gradient Overlay */}
-        <div 
-          className="absolute inset-0 transition-all duration-1000"
-          style={{
-            background: `
-              radial-gradient(
-                circle at ${mousePosition.x}% ${mousePosition.y}%,
-                rgba(37, 99, 235, 0.25) 0%,
-                transparent 50%
-              ),
-              linear-gradient(
-                135deg,
-                rgba(15, 23, 42, 0.75) 0%,
-                rgba(30, 58, 138, 0.6) 50%,
-                rgba(15, 23, 42, 0.75) 100%
-              )
-            `
-          }}
-        />
+        {/* Minimal gradient overlay - mostly white/black for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 dark:from-black/85 dark:via-black/80 dark:to-black/85" />
         
-        {/* Animated Mesh Gradient */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-pink-600/20 to-cyan-600/20 animate-gradient" />
-        </div>
-        
-        {/* Grid Pattern with animation */}
-        <div 
-          className="absolute inset-0 opacity-20"
+        {/* Subtle gradient orbs - extremely muted */}
+        <div className="absolute inset-0" 
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+              radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(120, 119, 198, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.02) 0%, transparent 70%)
             `,
-            backgroundSize: '50px 50px',
-            animation: 'grid 20s linear infinite'
           }}
         />
-      </div>
-
-      {/* Floating 3D Icons */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {floatingIcons.map((item, index) => {
-          const { Icon, delay, duration } = item
-          return (
-            <div
-              key={index}
-              className="absolute opacity-20"
-              style={{
-                animation: `float ${duration}s ease-in-out infinite`,
-                animationDelay: `${delay}s`
-              }}
-            >
-              <Icon className="w-20 h-20 text-white/20" />
-            </div>
-          )
-        })}
-      </div>
-
-      
-      {/* Floating Gradient Orbs with blur */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-float-slow" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-float-reverse" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-3xl animate-pulse-slow" />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        
+        {/* Very subtle floating orbs */}
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-gray-200/10 dark:bg-gray-800/10 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-gray-200/10 dark:bg-gray-800/10 rounded-full blur-3xl animate-float-reverse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gray-200/5 dark:bg-gray-800/5 rounded-full blur-3xl" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto text-center text-white px-4">
-        <div className="max-w-5xl mx-auto">
-          {/* Animated Top Badge */}
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Minimal top badge */}
           <div 
-            className={`inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-xl border border-white/10 text-white text-sm font-medium mb-8 transform transition-all duration-1000 hover:scale-105 ${
+            className={`inline-block mb-12 transform transition-all duration-1000 ${
               isLoaded ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
             }`}
           >
-            <Sparkles className="w-4 h-4 mr-2 text-blue-400 animate-pulse" />
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">
-              2025년 대한민국 No.1 기술 벤처 지원 기관
+            <span className="text-[11px] font-medium tracking-[0.3em] text-gray-400 dark:text-gray-600 uppercase">
+              Est. 2025 · Seoul · Non-profit Organization
             </span>
           </div>
 
-          {/* Main Title with Typing Animation */}
+          {/* Main Title with minimal styling */}
           <h1 
-            className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight transform transition-all duration-1000 delay-200 ${
+            className={`transform transition-all duration-1000 delay-200 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <span className="block mb-4">
-              <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
-                기술벤처스타트업의
-              </span>
+            <span className="block text-lg md:text-xl text-gray-500 dark:text-gray-400 font-light mb-4 tracking-wide">
+              사단법인
             </span>
-            <span className="relative inline-block min-h-[1.2em]">
-              <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent font-extrabold text-6xl md:text-7xl lg:text-8xl">
-                {displayText}
-                <span className="animate-blink">|</span>
-              </span>
+            <span className="block text-5xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-tight bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(59,130,246,0.25)]">
+              기술벤처<span className="font-normal">스타트업</span>협회
             </span>
           </h1>
 
-          {/* Enhanced Subtitle */}
+          {/* Divider */}
           <div 
-            className={`text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed transform transition-all duration-1000 delay-400 ${
+            className={`w-32 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent mx-auto my-10 transform transition-all duration-1000 delay-300 ${
+              isLoaded ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+            }`}
+          />
+
+          {/* Typing Animation - Simplified */}
+          <div 
+            className={`mb-10 transform transition-all duration-1000 delay-400 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <p className="mb-2">
-              혁신적인 기술과 창의적인 아이디어로 세상을 변화시킬
-            </p>
-            <p>
-              스타트업의 성공을 위한{' '}
-              <span className="relative inline-block">
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 blur-lg opacity-75"></span>
-                <span className="relative font-semibold text-white">모든 지원</span>
-              </span>
-              을 제공합니다
-            </p>
+            <span className="text-2xl md:text-3xl lg:text-4xl text-gray-700 dark:text-gray-300 font-light">
+              {displayText}
+              <span className="animate-blink text-gray-400 dark:text-gray-600">|</span>
+            </span>
           </div>
 
-          {/* 3D Style CTA Buttons */}
+          {/* Subtitle - Minimal */}
+          <p 
+            className={`text-lg md:text-xl text-gray-600 dark:text-gray-400 font-light leading-relaxed max-w-3xl mx-auto mb-12 transform transition-all duration-1000 delay-500 ${
+              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}
+          >
+            AI/디지털 전환부터 스타트업 육성, 산학 협력까지<br />
+            기술 혁신 생태계의 <span className="font-normal text-gray-900 dark:text-gray-100">종합 파트너</span>
+          </p>
+
+          {/* CTA Buttons - Ultra Minimal */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 transform transition-all duration-1000 delay-600 ${
+            className={`flex flex-col sm:flex-row gap-4 justify-center transform transition-all duration-1000 delay-600 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
             <Button 
               size="lg"
-              className="group relative h-14 min-w-[18rem] rounded-2xl px-8 text-lg font-semibold overflow-hidden transform transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+              className="group h-14 min-w-[16rem] rounded-xl px-8 text-base font-medium text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 hover:from-blue-700 hover:via-cyan-600 hover:to-purple-700 shadow-[0_10px_30px_-10px_rgba(59,130,246,0.6)] dark:text-white"
+              asChild
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 transition-all duration-300 group-hover:from-blue-500 group-hover:to-cyan-500"></span>
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-              <span className="relative flex items-center justify-center gap-3 text-white">
-                협회 가입하기
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
+              <Link href="/membership/apply">
+                <span className="flex items-center gap-3">
+                  협회 가입하기
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
             </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="group h-14 min-w-[18rem] rounded-2xl px-8 text-lg gap-3 text-white border-white/30 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-            >
-              프로그램 살펴보기
-              <Sparkles className="w-5 h-5 text-cyan-400 group-hover:rotate-12 transition-transform" />
-            </Button>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Enhanced Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 group cursor-pointer z-20">
-        <div className="flex flex-col items-center text-white/60 hover:text-white/80 transition-colors">
-          <span className="text-xs mb-2 tracking-wider uppercase font-medium">Scroll</span>
-          <div className="relative w-6 h-10 border-2 border-white/30 rounded-full group-hover:border-white/50 transition-colors">
-            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-white/60 rounded-full animate-scroll" />
+            <Link href="/about">
+              <Button 
+                size="lg"
+                variant="outline"
+                className="group h-14 min-w-[16rem] rounded-xl px-8 text-base font-medium border-2 border-transparent text-blue-700 dark:text-cyan-300 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 hover:from-blue-100 hover:to-cyan-100 dark:hover:from-blue-900/30 dark:hover:to-cyan-900/30 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.35),0_6px_20px_-8px_rgba(59,130,246,0.45)]"
+              >
+                협회 소개
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
 
+      {/* Scroll Indicator removed as requested */}
 
-      {/* Custom CSS for animations */}
+      {/* CSS for animations */}
       <style jsx>{`
-        @keyframes gradient {
-          0%, 100% { 
-            background-position: 0% 50%;
-            background-size: 200% 200%;
-          }
-          50% { 
-            background-position: 100% 50%;
-            background-size: 200% 200%;
-          }
-        }
-        
-        @keyframes float {
-          0%, 100% {
-            transform: translate(0, 0) rotate(0deg);
-          }
-          25% {
-            transform: translate(100px, -100px) rotate(90deg);
-          }
-          50% {
-            transform: translate(-100px, -200px) rotate(180deg);
-          }
-          75% {
-            transform: translate(-200px, -100px) rotate(270deg);
-          }
-        }
-        
         @keyframes float-slow {
           0%, 100% {
             transform: translate(0, 0) scale(1);
           }
           50% {
-            transform: translate(30px, -30px) scale(1.1);
+            transform: translate(20px, -20px) scale(1.05);
           }
         }
         
@@ -290,35 +190,7 @@ export default function HeroSection() {
             transform: translate(0, 0) scale(1);
           }
           50% {
-            transform: translate(-30px, 30px) scale(1.1);
-          }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% {
-            opacity: 0.2;
-            transform: translate(-50%, -50%) scale(1);
-          }
-          50% {
-            opacity: 0.3;
-            transform: translate(-50%, -50%) scale(1.05);
-          }
-        }
-        
-        @keyframes particle {
-          0% {
-            transform: translate(0, 0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translate(var(--tx, 100px), var(--ty, -100vh));
-            opacity: 0;
+            transform: translate(-20px, 20px) scale(1.05);
           }
         }
         
@@ -327,52 +199,17 @@ export default function HeroSection() {
           51%, 100% { opacity: 0; }
         }
         
-        @keyframes scroll {
-          0% {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translateX(-50%) translateY(20px);
-            opacity: 0;
-          }
-        }
-        
-        @keyframes grid {
-          0% {
-            transform: translate(0, 0);
-          }
-          100% {
-            transform: translate(50px, 50px);
-          }
-        }
-        
-        .animate-gradient {
-          animation: gradient 8s ease infinite;
-        }
         
         .animate-float-slow {
-          animation: float-slow 10s ease-in-out infinite;
+          animation: float-slow 20s ease-in-out infinite;
         }
         
         .animate-float-reverse {
-          animation: float-reverse 10s ease-in-out infinite;
-        }
-        
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
+          animation: float-reverse 20s ease-in-out infinite;
         }
         
         .animate-blink {
           animation: blink 1s step-end infinite;
-        }
-        
-        .animate-scroll {
-          animation: scroll 1.5s ease-in-out infinite;
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
         }
       `}</style>
     </section>

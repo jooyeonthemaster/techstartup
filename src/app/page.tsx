@@ -1,22 +1,79 @@
-import { Suspense } from 'react'
 import HeroSection from '@/components/sections/HeroSection'
-import PurposeSection from '@/components/sections/PurposeSection'
-import MembershipTargetSection from '@/components/sections/MembershipTargetSection'
-import BusinessPlan2025Section from '@/components/sections/BusinessPlan2025Section'
-import MembershipFeesSection from '@/components/sections/MembershipFeesSection'
 import ContactSection from '@/components/sections/ContactSection'
+import GoogleMapEmbed from '@/components/ui/google-map-embed'
+import LatestListCompact from '@/components/sections/compact/LatestListCompact'
+import BusinessPlan2025Section from '@/components/sections/BusinessPlan2025Section'
+import BusinessPlusCompact from '@/components/sections/compact/BusinessPlusCompact'
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <PurposeSection />
-      <MembershipTargetSection />
-      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-        <BusinessPlan2025Section />
-      </Suspense>
-      <MembershipFeesSection />
+      
+      {/* Main Content Section - Ultra Minimal */}
+      <section className="py-24 bg-gray-50/50 dark:bg-gray-950/50">
+        <div className="container mx-auto px-4">
+          <div className="mb-16">
+            <BusinessPlusCompact />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <LatestListCompact
+              title="공지사항"
+              moreHref="/news/notice"
+              items={[
+                { id: 'n1', title: '[제8회 2025년 대한민국 강소기업 대상] 접수 안내', href: '/news/notice', date: '2025-09-01' },
+                { id: 'n2', title: '[강기업 사관학교] 멀티 관리자 기획력 향상 과정 모집', href: '/news/notice' },
+                { id: 'n3', title: '추석 선물세트 판매 안내', href: '/news/notice' },
+              ]}
+            />
+            <LatestListCompact
+              title="보도자료"
+              moreHref="/news/press"
+              items={[
+                { id: 'p1', title: "[중소기업신문] 한국강소기업협회·중소기업신문 MOU 체결", href: '/news/press', date: '2024-07-02' },
+                { id: 'p2', title: "[중앙일보] '제6회 2024 대한민국 강소기업 대상' 성료", href: '/news/press' },
+                { id: 'p3', title: "[중소기업신문] 상생협력 실천하는 '강소기업 협회'", href: '/news/press' },
+              ]}
+            />
+            <LatestListCompact
+              title="회원사 소개"
+              moreHref="/members"
+              items={[
+                { id: 'm1', title: '더오포', href: '/members' },
+                { id: 'm2', title: '주식회사 일신환경', href: '/members' },
+                { id: 'm3', title: '(주)브라이트스타로지스틱스', href: '/members' },
+              ]}
+            />
+          </div>
+
+          <div className="mt-12 max-w-6xl mx-auto">
+            <BusinessPlan2025Section />
+          </div>
+        </div>
+      </section>
+
       <ContactSection />
+
+      {/* 찾아오시는 길 */}
+      <section className="py-24 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
+              찾아오시는 길
+            </h2>
+            <p className="text-muted-foreground mt-2">서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호</p>
+          </div>
+          <div className="rounded-xl overflow-hidden shadow-xl">
+            <GoogleMapEmbed
+              srcOrQuery={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.7786119305347!2d126.99118247629664!3d37.560279424486104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca2fccfbaedf1%3A0xfe1ed01bbd624472!2z7ISc7Jq47Yq567OE7IucIOykkeq1rCDth7Tqs4TroZwzNuq4uCAy!5e0!3m2!1sko!2skr!4v1758207336109!5m2!1sko!2skr`}
+              height={450}
+              className="w-full"
+              title="찾아오시는 길"
+            />
+          </div>
+        </div>
+      </section>
     </>
   )
 }
