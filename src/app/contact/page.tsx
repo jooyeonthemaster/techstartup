@@ -37,8 +37,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 const contactInfo = {
   address: '서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호',
   phone: '010-3721-0204',
-  fax: '02-1234-5679',
-  email: 'info@ktvsa.or.kr',
+  fax: '',
+  email: 'info@techventure.or.kr',
   hours: '평일 09:00 - 18:00',
   kakao: '@기술벤처스타트업협회'
 }

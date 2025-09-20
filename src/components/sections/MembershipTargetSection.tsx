@@ -69,21 +69,20 @@ export default function MembershipTargetSection() {
   }, [])
 
   return (
-    <section id="membership" className="relative pt-0 pb-20 overflow-hidden">
-
-      <div className="container mx-auto px-4 relative">
-        {/* CTA moved to top */}
+    <section id="membership" className="pt-0 pb-20">
+      <div className="container mx-auto px-4">
+        {/* CTA Buttons */}
         <div className="text-center mb-10">
-          <div className="inline-flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="inline-flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/membership/apply"
-              className="px-7 py-3 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 shadow-[0_10px_30px_-10px_rgba(59,130,246,0.6)] hover:from-blue-700 hover:via-cyan-600 hover:to-purple-700 transition-all"
+              className="px-8 py-3 bg-[#ff6600] text-white font-bold hover:bg-[#ff6600]/90 transition-all duration-300 rounded"
             >
               협회 가입 신청하기
             </a>
             <a
               href="/membership/fees"
-              className="px-7 py-3 rounded-xl text-base font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-600 bg-white/60 dark:bg-white/10 backdrop-blur-md transition-all"
+              className="px-8 py-3 bg-white text-[#005bac] font-bold border-2 border-[#005bac] hover:bg-blue-50 transition-all duration-300 rounded"
             >
               협회비 안내 보기
             </a>
@@ -106,45 +105,60 @@ export default function MembershipTargetSection() {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="relative rounded-2xl p-8 border border-white/20 hover:border-white/30 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)] transition-all group-hover:-translate-y-0.5 h-full">
-                  {/* Top glossy highlight */}
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 to-transparent" />
-                  {/* Bottom soft shadow gradient */}
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/5 to-transparent" />
-                  {/* Light sweep on hover */}
-                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-                    <div className="absolute -inset-y-4 -left-1/2 w-2/3 bg-gradient-to-r from-white/0 via-white/30 to-white/0 rotate-12 translate-x-[-140%] group-hover:translate-x-[220%] transition-transform duration-700 ease-out" />
-                  </div>
+                <div className={`
+                  bg-white rounded-lg p-8 h-full
+                  border-2 shadow-sm hover:shadow-lg
+                  transition-all duration-300 group-hover:-translate-y-1
+                  ${
+                    index === 0 ? 'border-blue-200 hover:border-[#005bac]/50' :
+                    index === 1 ? 'border-orange-200 hover:border-[#ff6600]/50' :
+                    index === 2 ? 'border-green-200 hover:border-green-500/50' :
+                    index === 3 ? 'border-purple-200 hover:border-purple-500/50' :
+                    'border-blue-200 hover:border-[#005bac]/50'
+                  }
+                `}>
                   
                   {/* Content */}
-                  <div className="relative z-10 h-full flex flex-col">
-                    {/* Icon with subtle radial glow */}
-                    <div className="relative mb-6">
-                      <div className="absolute -z-10 -top-2 left-0 w-24 h-24 rounded-full bg-primary/20 blur-2xl" />
-                      <div className="w-16 h-16 rounded-xl grid place-items-center border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md">
-                        <Icon className="w-8 h-8 text-primary" />
+                  <div className="h-full flex flex-col">
+                    {/* Icon */}
+                    <div className="mb-6">
+                      <div className={`
+                        w-16 h-16 rounded-full flex items-center justify-center
+                        ${
+                          index === 0 ? 'bg-blue-50 text-[#005bac]' :
+                          index === 1 ? 'bg-orange-50 text-[#ff6600]' :
+                          index === 2 ? 'bg-green-50 text-green-600' :
+                          index === 3 ? 'bg-purple-50 text-purple-600' :
+                          'bg-blue-50 text-[#005bac]'
+                        }
+                      `}>
+                        <Icon className="w-8 h-8" />
                       </div>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                    <h3 className={`
+                      text-lg font-bold mb-2 transition-colors
+                      ${
+                        index === 0 ? 'text-[#005bac]' :
+                        index === 1 ? 'text-[#ff6600]' :
+                        index === 2 ? 'text-green-600' :
+                        index === 3 ? 'text-purple-600' :
+                        'text-[#005bac]'
+                      }
+                    `}>
                       {target.title}
                     </h3>
 
                     {/* Subtitle */}
-                    <div className="text-sm font-semibold text-muted-foreground mb-4">
+                    <div className="text-sm font-semibold text-gray-500 mb-4">
                       {target.subtitle}
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed flex-grow">
+                    <p className="text-gray-700 leading-relaxed flex-grow">
                       {target.description}
                     </p>
-
-                    {/* Decorative Element */}
-                    <div className="absolute bottom-4 right-4 w-12 h-12 opacity-10">
-                      <Icon className="w-full h-full text-foreground/10" />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -152,30 +166,30 @@ export default function MembershipTargetSection() {
           })}
         </div>
 
-        {/* Benefits Section - glass & subtle */}
-        <div className="rounded-3xl p-8 md:p-12 text-center border border-white/20 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)]">
-          <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">회원 혜택</h3>
+        {/* Benefits Section - Traditional Design */}
+        <div className="bg-gray-50 rounded-lg p-8 md:p-12 text-center border-2 border-[#005bac] shadow-sm">
+          <h3 className="text-2xl md:text-3xl font-bold text-[#005bac] mb-8">회원 혜택</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
-                <Brain className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 border-2 border-blue-200">
+                <Brain className="w-8 h-8 text-[#005bac]" />
               </div>
-              <h4 className="text-lg font-semibold text-foreground mb-2">전문 네트워킹</h4>
-              <p className="text-muted-foreground">산·학·연 전문가들과의 네트워킹 기회 제공</p>
+              <h4 className="text-lg font-bold text-[#005bac] mb-2">전문 네트워킹</h4>
+              <p className="text-gray-600">산·학·연 전문가들과의 네트워킹 기회 제공</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
-                <TrendingUp className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center mb-4 border-2 border-orange-200">
+                <TrendingUp className="w-8 h-8 text-[#ff6600]" />
               </div>
-              <h4 className="text-lg font-semibold text-foreground mb-2">투자 기회</h4>
-              <p className="text-muted-foreground">개인투자조합을 통한 투자 참여 기회</p>
+              <h4 className="text-lg font-bold text-[#ff6600] mb-2">투자 기회</h4>
+              <p className="text-gray-600">개인투자조합을 통한 투자 참여 기회</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border border-white/30 bg-white/60 dark:bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
-                <BookOpen className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-4 border-2 border-green-200">
+                <BookOpen className="w-8 h-8 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-foreground mb-2">학술 활동</h4>
-              <p className="text-muted-foreground">기술창업 관련 학술세미나 및 연구 참여</p>
+              <h4 className="text-lg font-bold text-green-600 mb-2">학술 활동</h4>
+              <p className="text-gray-600">기술창업 관련 학술세미나 및 연구 참여</p>
             </div>
           </div>
         </div>

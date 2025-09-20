@@ -5,18 +5,24 @@ import LatestListCompact from '@/components/sections/compact/LatestListCompact'
 import BusinessPlan2025Section from '@/components/sections/BusinessPlan2025Section'
 import BusinessPlusCompact from '@/components/sections/compact/BusinessPlusCompact'
 
+
 export default function Home() {
   return (
     <>
       <HeroSection />
       
+      {/* CORE BUSINESS 섹션 - 히어로 섹션 바로 아래 배치 */}
+      <BusinessPlusCompact />
+      
       {/* Main Content Section - Ultra Minimal */}
       <section className="py-24 bg-gray-50/50 dark:bg-gray-950/50">
         <div className="container mx-auto px-4">
+          {/* 2025 사업계획 섹션 */}
           <div className="mb-16">
-            <BusinessPlusCompact />
+            <BusinessPlan2025Section />
           </div>
           
+          {/* 공지사항, 보도자료, 회원사 소개 섹션 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <LatestListCompact
               title="공지사항"
@@ -46,10 +52,6 @@ export default function Home() {
               ]}
             />
           </div>
-
-          <div className="mt-12 max-w-6xl mx-auto">
-            <BusinessPlan2025Section />
-          </div>
         </div>
       </section>
 
@@ -66,7 +68,7 @@ export default function Home() {
           </div>
           <div className="rounded-xl overflow-hidden shadow-xl">
             <GoogleMapEmbed
-              srcOrQuery={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.7786119305347!2d126.99118247629664!3d37.560279424486104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca2fccfbaedf1%3A0xfe1ed01bbd624472!2z7ISc7Jq47Yq567OE7IucIOykkeq1rCDth7Tqs4TroZwzNuq4uCAy!5e0!3m2!1sko!2skr!4v1758207336109!5m2!1sko!2skr`}
+              srcOrQuery={"서울특별시 중구 퇴계로 36길 2"}
               height={450}
               className="w-full"
               title="찾아오시는 길"
