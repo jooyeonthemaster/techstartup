@@ -25,18 +25,18 @@ export default function EmploymentPage() {
                   외국인 유학생을 대상으로 한 AI 마케팅 실무 프로젝트 기반 채용연계 프로그램입니다.
                   생성형 AI를 활용한 해외시장 진출 시장조사 설계 및 리포트 작성 교육을 제공합니다.
                 </p>
-                <div className="grid grid-cols-3 gap-4 mt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                   <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
-                    <div className="text-2xl font-bold text-[#005bac]">10주</div>
-                    <div className="text-sm text-gray-600">교육 기간</div>
+                    <div className="text-xl md:text-2xl font-bold text-[#005bac]">10주</div>
+                    <div className="text-xs md:text-sm text-gray-600">교육 기간</div>
                   </div>
                   <div className="p-4 bg-orange-50 rounded-lg border border-orange-200 hover:bg-orange-100 transition-colors">
-                    <div className="text-2xl font-bold text-[#ff6600]">110시간</div>
-                    <div className="text-sm text-gray-600">총 교육 시간</div>
+                    <div className="text-xl md:text-2xl font-bold text-[#ff6600]">110시간</div>
+                    <div className="text-xs md:text-sm text-gray-600">총 교육 시간</div>
                   </div>
                   <div className="p-4 bg-green-50 rounded-lg border border-green-200 hover:bg-green-100 transition-colors">
-                    <div className="text-2xl font-bold text-green-600">100%</div>
-                    <div className="text-sm text-gray-600">지원금</div>
+                    <div className="text-xl md:text-2xl font-bold text-green-600">100%</div>
+                    <div className="text-xs md:text-sm text-gray-600">지원금</div>
                   </div>
                 </div>
               </div>
@@ -48,25 +48,25 @@ export default function EmploymentPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-gradient-to-br from-[#005bac]/5 to-white p-10 rounded-xl border-2 border-[#005bac]/20 shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="bg-gradient-to-br from-[#005bac]/5 to-white p-8 md:p-10 rounded-xl border-2 border-[#005bac]/20 shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <h2 className="text-2xl font-semibold text-[#005bac] mb-6">프로그램 성과</h2>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 <div className="p-4 bg-white rounded-lg border-2 border-blue-100 hover:border-[#005bac]/50 hover:bg-blue-50/50 transition-all duration-200">
-                  <div className="text-3xl font-bold text-[#005bac] mb-1">420명</div>
-                  <div className="text-gray-600">지원자</div>
+                  <div className="text-2xl md:text-3xl font-bold text-[#005bac] mb-1">420명</div>
+                  <div className="text-xs md:text-sm text-gray-600">지원자</div>
                 </div>
                 <div className="p-4 bg-white rounded-lg border-2 border-orange-100 hover:border-[#ff6600]/50 hover:bg-orange-50/50 transition-all duration-200">
-                  <div className="text-3xl font-bold text-[#ff6600] mb-1">26명</div>
-                  <div className="text-gray-600">최종 선발</div>
+                  <div className="text-2xl md:text-3xl font-bold text-[#ff6600] mb-1">26명</div>
+                  <div className="text-xs md:text-sm text-gray-600">최종 선발</div>
                 </div>
                 <div className="p-4 bg-white rounded-lg border-2 border-green-100 hover:border-green-400 hover:bg-green-50/50 transition-all duration-200">
-                  <div className="text-3xl font-bold text-green-600 mb-1">44개</div>
-                  <div className="text-gray-600">인턴십 포지션</div>
+                  <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">44개</div>
+                  <div className="text-xs md:text-sm text-gray-600">인턴십 포지션</div>
                 </div>
                 <div className="p-4 bg-white rounded-lg border-2 border-purple-100 hover:border-purple-400 hover:bg-purple-50/50 transition-all duration-200">
-                  <div className="text-3xl font-bold text-purple-600 mb-1">3개</div>
-                  <div className="text-gray-600">협력 대학</div>
+                  <div className="text-2xl md:text-3xl font-bold text-purple-600 mb-1">3개</div>
+                  <div className="text-xs md:text-sm text-gray-600">협력 대학</div>
                 </div>
               </div>
             </motion.div>
@@ -177,17 +177,17 @@ export default function EmploymentPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-white p-12 rounded-xl border-2 border-blue-100 shadow-sm"
+            className="bg-white p-6 md:p-12 rounded-xl border-2 border-blue-100 shadow-sm -mx-6 md:mx-0"
           >
-            <h2 className="text-2xl font-semibold text-[#005bac] mb-8 text-center">교육 커리큘럼</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="p-8 bg-gradient-to-br from-blue-50 to-white rounded-lg border-2 border-blue-200">
+            <h2 className="text-xl md:text-2xl font-semibold text-[#005bac] mb-6 md:mb-8 text-center">교육 커리큘럼</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="p-6 md:p-8 bg-gradient-to-br from-blue-50 to-white rounded-lg border-2 border-blue-200">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-[#005bac] rounded-lg flex items-center justify-center">
                     <Briefcase className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-[#005bac]">토요일 프로그램</h3>
+                    <h3 className="text-base md:text-lg font-semibold text-[#005bac]">토요일 프로그램</h3>
                     <p className="text-sm text-gray-600">80시간</p>
                   </div>
                 </div>
@@ -211,13 +211,13 @@ export default function EmploymentPage() {
                 </ul>
               </div>
 
-              <div className="p-8 bg-gradient-to-br from-orange-50 to-white rounded-lg border-2 border-orange-200">
+              <div className="p-6 md:p-8 bg-gradient-to-br from-orange-50 to-white rounded-lg border-2 border-orange-200">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-[#ff6600] rounded-lg flex items-center justify-center">
                     <TrendingUp className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-[#ff6600]">평일 저녁 프로그램</h3>
+                    <h3 className="text-base md:text-lg font-semibold text-[#ff6600]">평일 저녁 프로그램</h3>
                     <p className="text-sm text-gray-600">30시간</p>
                   </div>
                 </div>
@@ -252,11 +252,12 @@ export default function EmploymentPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-white p-12 rounded-xl border-2 border-[#005bac]/20 shadow-sm"
+            className="bg-white p-6 md:p-12 rounded-xl border-2 border-[#005bac]/20 shadow-sm -mx-6 md:mx-0"
           >
             <h2 className="text-2xl font-semibold text-[#005bac] mb-8 text-center">프로그램 일정</h2>
             <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#005bac] to-[#ff6600]"></div>
+              <div className="md:hidden absolute left-6 top-0 w-px h-full bg-gradient-to-b from-[#005bac] to-[#ff6600]"></div>
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#005bac] to-[#ff6600]"></div>
               {[
                 { date: '2025년 4월', title: '모집', desc: '420명 지원, 20명 선발', color: 'blue' },
                 { date: '2025년 4-6월', title: '교육', desc: '10주 집중 교육 프로그램', color: 'orange' },
@@ -264,8 +265,8 @@ export default function EmploymentPage() {
                 { date: '2025년 7-8월', title: '인턴십', desc: '2개월 전액 지원 인턴십', color: 'purple' },
                 { date: '2025년 9월+', title: '채용', desc: 'D-10 비자 전환 및 정규직 채용', color: 'blue' }
               ].map((item, i) => (
-                <div key={i} className={`relative flex items-center mb-8 ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                  <div className={`w-5/12 ${i % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
+                <div key={i} className={`relative mb-8 md:flex md:items-center ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
+                  <div className={`w-full md:w-5/12 pl-10 ${i % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'}`}>
                     <div className={`p-6 bg-white rounded-lg border-2 shadow-sm hover:shadow-md transition-all ${
                       item.color === 'blue' ? 'border-blue-200 hover:border-[#005bac]/50' :
                       item.color === 'orange' ? 'border-orange-200 hover:border-[#ff6600]/50' :
@@ -282,7 +283,7 @@ export default function EmploymentPage() {
                       <p className="text-gray-600 text-sm">{item.desc}</p>
                     </div>
                   </div>
-                  <div className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white ${
+                  <div className={`absolute top-1/2 left-6 md:left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-4 border-white ${
                     item.color === 'blue' ? 'bg-[#005bac]' :
                     item.color === 'orange' ? 'bg-[#ff6600]' :
                     item.color === 'green' ? 'bg-green-600' :

@@ -85,7 +85,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       className={`
-                        block px-6 py-3 text-sm font-bold
+                        block px-6 py-3 text-lg font-bold
                         ${pathname === item.href 
                           ? 'text-[#005bac] border-b-2 border-[#005bac]' 
                           : 'text-[#333] hover:text-[#005bac]'
@@ -105,7 +105,7 @@ export default function Header() {
                           <li key={subitem.href}>
                             <Link
                               href={subitem.href}
-                              className="block px-4 py-2 text-sm text-[#333] hover:bg-[#f5f5f5] hover:text-[#005bac] border-b border-[#eee] last:border-0"
+                              className="block px-4 py-2 text-base text-[#333] hover:bg-[#f5f5f5] hover:text-[#005bac] border-b border-[#eee] last:border-0"
                             >
                               {subitem.title}
                             </Link>
@@ -142,7 +142,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       className={`
-                        block py-3 text-sm font-bold
+                        block py-3 text-lg font-bold
                         ${pathname === item.href 
                           ? 'text-[#005bac]' 
                           : 'text-[#333]'
@@ -160,7 +160,7 @@ export default function Header() {
                           <li key={subitem.href}>
                             <Link
                               href={subitem.href}
-                              className="block py-2 text-xs text-[#666] hover:text-[#005bac]"
+                              className="block py-2 text-base text-[#666] hover:text-[#005bac]"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               - {subitem.title}
