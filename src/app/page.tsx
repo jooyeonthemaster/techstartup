@@ -61,10 +61,10 @@ export default function Home() {
       <section className="py-24 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#005bac]">
               찾아오시는 길
             </h2>
-            <p className="text-muted-foreground mt-2">서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">서울시 중구 퇴계로 36길 2, 충무로관 신관 B103호</p>
           </div>
           <div className="rounded-xl overflow-hidden shadow-xl">
             <GoogleMapEmbed

@@ -1,4 +1,3 @@
-import { SectionBackground } from '@/components/ui/section-transition'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,36 +10,30 @@ export default function BusinessOverviewPage() {
 
   return (
     <>
-      <SectionBackground preset="hero" className="py-0">
-        <section className="relative min-h-[36vh] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-purple-600/10" />
-          </div>
-          <div className="relative z-10 container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">사업 안내</h1>
-            <p className="mt-4 text-white/80 max-w-2xl mx-auto">실제 진행 예정인 3가지 핵심 사업을 소개합니다.</p>
-          </div>
-        </section>
-      </SectionBackground>
+      <section className="relative pt-32 pb-16 bg-gray-50/50">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#005bac]">사업 안내</h1>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">실제 진행 예정인 3가지 핵심 사업을 소개합니다.</p>
+        </div>
+      </section>
 
-      <SectionBackground preset="business">
+      <section className="bg-white py-16">
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {items.map((item) => (
-              <div key={item.id} className="group relative overflow-hidden rounded-2xl border border-white/20 hover:border-white/30 bg-white/55 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_1px_0_0_hsl(0_0%_100%/_0.25)_inset,0_6px_24px_-8px_hsl(0_0%_0%/_0.18)] transition-all hover:-translate-y-0.5">
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 to-transparent" />
+              <div key={item.id} className="group relative overflow-hidden rounded-xl border-2 border-gray-200 hover:border-[#005bac] bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
                 <div className="relative aspect-[4/3]">
-                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04] group-hover:rotate-[0.2deg]" />
+                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                <div className="p-5 bg-white">
+                  <h3 className="text-lg font-bold text-[#005bac] group-hover:text-[#ff6600] transition-colors">{item.title}</h3>
                 </div>
                 <Link href={item.href} className="absolute inset-0" aria-label={`${item.title} 바로가기`} />
               </div>
             ))}
           </div>
         </div>
-      </SectionBackground>
+      </section>
     </>
   )
 }

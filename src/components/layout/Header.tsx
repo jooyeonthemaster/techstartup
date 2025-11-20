@@ -1,17 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const menuItems = [
-  {
-    title: '홈',
-    href: '/',
-    submenu: []
-  },
   {
     title: '협회소개',
     href: '/about',
@@ -49,133 +45,179 @@ const menuItems = [
 ]
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
   const pathname = usePathname()
+  const isHome = pathname === '/'
+
+  // Scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Header style based on state
+  const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    isScrolled || !isHome || mobileMenuOpen
+      ? 'bg-white shadow-md py-3' 
+      : 'bg-transparent py-5'
+  }`
+
+  const textClass = isScrolled || !isHome || mobileMenuOpen
+    ? 'text-gray-900' 
+    : 'text-white'
 
   return (
-    <>
-      {/* Main Header - Traditional style but with original logo */}
-      <header className="bg-white border-b-4 border-[#005bac] sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
-            {/* Original Logo */}
-            <Link href="/" className="flex items-center">
-              <div className="relative w-40 h-12">
-                <Image 
-                  src="/images/logo.png" 
-                  alt="KTVSA Logo" 
-                  fill 
-                  className="object-contain" 
-                  priority 
-                />
-              </div>
-            </Link>
+    <header className={headerClass}>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link href="/" className="flex items-center z-50 relative">
+            <div className="relative w-40 h-12">
+              {/* Note: You might need a white version of logo for transparent header */}
+              <Image 
+                src="/images/logo.png" 
+                alt="KTVSA Logo" 
+                fill 
+                className="object-contain" 
+                priority 
+              />
+            </div>
+          </Link>
 
-            {/* Desktop Navigation - Traditional horizontal menu */}
-            <nav className="hidden lg:block">
-              <ul className="flex items-center">
-                {menuItems.map((item) => (
-                  <li 
-                    key={item.href} 
-                    className="relative"
-                    onMouseEnter={() => setActiveSubmenu(item.href)}
-                    onMouseLeave={() => setActiveSubmenu(null)}
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:block">
+            <ul className="flex items-center gap-8">
+              {menuItems.map((item) => (
+                <li 
+                  key={item.href} 
+                  className="relative group"
+                  onMouseEnter={() => setActiveSubmenu(item.href)}
+                  onMouseLeave={() => setActiveSubmenu(null)}
+                >
+                  <Link
+                    href={item.href}
+                    className={`
+                      flex items-center text-lg font-medium transition-colors py-2
+                      ${textClass} hover:text-[#004094]
+                    `}
                   >
-                    <Link
-                      href={item.href}
-                      className={`
-                        block px-6 py-3 text-lg font-bold
-                        ${pathname === item.href 
-                          ? 'text-[#005bac] border-b-2 border-[#005bac]' 
-                          : 'text-[#333] hover:text-[#005bac]'
-                        }
-                      `}
-                    >
-                      {item.title}
-                      {item.submenu.length > 0 && (
-                        <ChevronDown className="inline w-3 h-3 ml-1" />
-                      )}
-                    </Link>
-                    
-                    {/* Dropdown Menu - Traditional style */}
+                    {item.title}
+                    {item.submenu.length > 0 && (
+                      <ChevronDown className="w-4 h-4 ml-1 opacity-70" />
+                    )}
+                  </Link>
+                  
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
                     {item.submenu.length > 0 && activeSubmenu === item.href && (
-                      <ul className="absolute top-full left-0 w-48 bg-white border border-[#ddd] shadow-md z-50">
+                      <motion.ul 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-sm py-2 border-t-2 border-[#004094]"
+                      >
                         {item.submenu.map((subitem) => (
                           <li key={subitem.href}>
                             <Link
                               href={subitem.href}
-                              className="block px-4 py-2 text-base text-[#333] hover:bg-[#f5f5f5] hover:text-[#005bac] border-b border-[#eee] last:border-0"
+                              className="block px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#004094] transition-colors"
                             >
                               {subitem.title}
                             </Link>
                           </li>
                         ))}
-                      </ul>
+                      </motion.ul>
                     )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                  </AnimatePresence>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          {/* Right Actions (Desktop) */}
+          <div className="hidden lg:flex items-center gap-4">
+            <Link 
+              href="/contact"
+              className={`text-sm font-medium px-4 py-2 rounded-sm border ${
+                isScrolled || !isHome 
+                  ? 'border-[#004094] text-[#004094] hover:bg-[#004094] hover:text-white' 
+                  : 'border-white text-white hover:bg-white hover:text-[#004094]'
+              } transition-all duration-300`}
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-[#333]" />
-              ) : (
-                <Menu className="w-6 h-6 text-[#333]" />
-              )}
-            </button>
+              문의하기
+            </Link>
           </div>
-        </div>
 
-        {/* Mobile Menu - Traditional style */}
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden z-50 relative"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <X className="w-7 h-7 text-gray-900" />
+            ) : (
+              <Menu className={`w-7 h-7 ${textClass}`} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Fullscreen Menu */}
+      <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#ddd]">
-            <nav className="container mx-auto px-4 py-4">
-              <ul>
-                {menuItems.map((item) => (
-                  <li key={item.href} className="border-b border-[#eee] last:border-0">
-                    <Link
-                      href={item.href}
-                      className={`
-                        block py-3 text-lg font-bold
-                        ${pathname === item.href 
-                          ? 'text-[#005bac]' 
-                          : 'text-[#333]'
-                        }
-                      `}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                    
-                    {/* Mobile Submenu */}
-                    {item.submenu.length > 0 && (
-                      <ul className="pl-4 pb-2">
-                        {item.submenu.map((subitem) => (
-                          <li key={subitem.href}>
-                            <Link
-                              href={subitem.href}
-                              className="block py-2 text-base text-[#666] hover:text-[#005bac]"
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              - {subitem.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
+          <motion.div 
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 overflow-y-auto"
+          >
+            <nav className="flex flex-col gap-6">
+              {menuItems.map((item) => (
+                <div key={item.href} className="border-b border-gray-100 pb-4">
+                  <Link
+                    href={item.href}
+                    className="text-2xl font-bold text-gray-900 block mb-3"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                  {item.submenu.length > 0 && (
+                    <ul className="pl-2 flex flex-col gap-2">
+                      {item.submenu.map((subitem) => (
+                        <li key={subitem.href}>
+                          <Link
+                            href={subitem.href}
+                            className="text-gray-500 hover:text-[#004094] py-1 block text-base"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {subitem.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+              <div className="mt-4">
+                <Link 
+                  href="/contact"
+                  className="block w-full text-center py-3 bg-[#004094] text-white font-bold rounded-sm"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  문의하기
+                </Link>
+              </div>
             </nav>
-          </div>
+          </motion.div>
         )}
-      </header>
-    </>
+      </AnimatePresence>
+    </header>
   )
 }

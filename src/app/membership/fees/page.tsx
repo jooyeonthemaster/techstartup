@@ -4,7 +4,7 @@ export default function MembershipFeesPage() {
   return (
     <>
       {/* Hero: Ultra minimal design */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-black">
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gray-50/50 dark:bg-gray-950">
         {/* Subtle background pattern */}
         <div className="absolute inset-0">
           <div className="absolute inset-0" 

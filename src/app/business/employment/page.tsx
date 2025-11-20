@@ -1,72 +1,120 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { CheckCircle, Briefcase, TrendingUp, Calendar, Users, Award } from 'lucide-react';
 import Image from 'next/image';
-import { ArrowRight, Users, Briefcase, TrendingUp, Target, Lightbulb, Rocket, CheckCircle } from 'lucide-react';
 
 export default function EmploymentPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50/30 to-white">
-      {/* Main Content with Enhanced Cards */}
-      <section className="pt-32 pb-20">
+    <div className="min-h-screen bg-white">
+      
+      {/* 1. Hero Section - Updated Visibility */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-[#004094]">
+        <div className="absolute inset-0 opacity-50">
+          <Image 
+            src="/images/business/employment-cover.png" 
+            alt="Employment Hero" 
+            fill 
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#004094]/90 via-[#004094]/70 to-[#004094]/80" />
+        
+        <div className="container mx-auto px-6 relative z-10 text-center text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-block px-4 py-1 border border-white/30 rounded-full mb-6 backdrop-blur-sm">
+              <span className="text-sm font-bold tracking-wider uppercase">Business Area 01</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-sm">
+              채용지원
+            </h1>
+            <p className="text-xl text-blue-50 max-w-2xl mx-auto font-light drop-shadow-sm">
+              우수한 글로벌 인재와 혁신 기업을 연결하여<br />
+              새로운 가치를 창출합니다.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. Program Overview & Stats - Modern Split Layout */}
+      <section className="py-24">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* AI Marketing Program Card */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
+          <div className="flex flex-col lg:flex-row gap-16 items-start">
+            {/* Left: Program Info */}
+            <motion.div 
+              className="lg:w-1/2"
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-white p-10 rounded-xl border-2 border-blue-100 shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-300"
             >
-              <h2 className="text-2xl font-semibold text-[#005bac] mb-6">AI 마케팅 역량 강화 프로그램</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#004094] mb-8 leading-tight">
+                AI 마케팅 역량 강화<br />
+                <span className="text-gray-900">프로그램</span>
+              </h2>
+              <div className="prose prose-lg text-gray-600 mb-10">
                 <p>
                   외국인 유학생을 대상으로 한 AI 마케팅 실무 프로젝트 기반 채용연계 프로그램입니다.
                   생성형 AI를 활용한 해외시장 진출 시장조사 설계 및 리포트 작성 교육을 제공합니다.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
-                    <div className="text-xl md:text-2xl font-bold text-[#005bac]">10주</div>
-                    <div className="text-xs md:text-sm text-gray-600">교육 기간</div>
-                  </div>
-                  <div className="p-4 bg-orange-50 rounded-lg border border-orange-200 hover:bg-orange-100 transition-colors">
-                    <div className="text-xl md:text-2xl font-bold text-[#ff6600]">110시간</div>
-                    <div className="text-xs md:text-sm text-gray-600">총 교육 시간</div>
-                  </div>
-                  <div className="p-4 bg-green-50 rounded-lg border border-green-200 hover:bg-green-100 transition-colors">
-                    <div className="text-xl md:text-2xl font-bold text-green-600">100%</div>
-                    <div className="text-xs md:text-sm text-gray-600">지원금</div>
-                  </div>
+              </div>
+
+              {/* Key Metrics Grid */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-6 bg-blue-50 rounded-2xl text-center group hover:bg-[#004094] transition-colors duration-300">
+                  <div className="text-3xl font-bold text-[#004094] mb-2 group-hover:text-white">10주</div>
+                  <div className="text-sm text-gray-600 font-medium group-hover:text-blue-100">교육 기간</div>
+                </div>
+                <div className="p-6 bg-orange-50 rounded-2xl text-center group hover:bg-[#ff6600] transition-colors duration-300">
+                  <div className="text-3xl font-bold text-[#ff6600] mb-2 group-hover:text-white">110<span className="text-lg">시간</span></div>
+                  <div className="text-sm text-gray-600 font-medium group-hover:text-orange-100">총 교육 시간</div>
+                </div>
+                <div className="p-6 bg-blue-50 rounded-2xl text-center group hover:bg-[#004094] transition-colors duration-300">
+                  <div className="text-3xl font-bold text-[#004094] mb-2 group-hover:text-white">100%</div>
+                  <div className="text-sm text-gray-600 font-medium group-hover:text-blue-100">지원금</div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Stats Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
+            {/* Right: Stats Card - Glassmorphism style */}
+            <motion.div 
+              className="lg:w-1/2 w-full"
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-gradient-to-br from-[#005bac]/5 to-white p-8 md:p-10 rounded-xl border-2 border-[#005bac]/20 shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
-              <h2 className="text-2xl font-semibold text-[#005bac] mb-6">프로그램 성과</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                <div className="p-4 bg-white rounded-lg border-2 border-blue-100 hover:border-[#005bac]/50 hover:bg-blue-50/50 transition-all duration-200">
-                  <div className="text-2xl md:text-3xl font-bold text-[#005bac] mb-1">420명</div>
-                  <div className="text-xs md:text-sm text-gray-600">지원자</div>
-                </div>
-                <div className="p-4 bg-white rounded-lg border-2 border-orange-100 hover:border-[#ff6600]/50 hover:bg-orange-50/50 transition-all duration-200">
-                  <div className="text-2xl md:text-3xl font-bold text-[#ff6600] mb-1">26명</div>
-                  <div className="text-xs md:text-sm text-gray-600">최종 선발</div>
-                </div>
-                <div className="p-4 bg-white rounded-lg border-2 border-green-100 hover:border-green-400 hover:bg-green-50/50 transition-all duration-200">
-                  <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">44개</div>
-                  <div className="text-xs md:text-sm text-gray-600">인턴십 포지션</div>
-                </div>
-                <div className="p-4 bg-white rounded-lg border-2 border-purple-100 hover:border-purple-400 hover:bg-purple-50/50 transition-all duration-200">
-                  <div className="text-2xl md:text-3xl font-bold text-purple-600 mb-1">3개</div>
-                  <div className="text-xs md:text-sm text-gray-600">협력 대학</div>
+              <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-10 relative">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -mr-10 -mt-10" />
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+                  <Award className="w-6 h-6 text-[#ff6600]" />
+                  프로그램 성과
+                </h3>
+
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1 font-medium uppercase tracking-wide">지원자</div>
+                    <div className="text-5xl font-bold text-[#004094]">420<span className="text-2xl text-gray-400 ml-1">명</span></div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1 font-medium uppercase tracking-wide">최종 선발</div>
+                    <div className="text-5xl font-bold text-[#ff6600]">26<span className="text-2xl text-gray-400 ml-1">명</span></div>
+                  </div>
+                  <div className="col-span-2 h-px bg-gray-100" />
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1 font-medium uppercase tracking-wide">인턴십 포지션</div>
+                    <div className="text-4xl font-bold text-gray-800">44<span className="text-xl text-gray-400 ml-1">개</span></div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1 font-medium uppercase tracking-wide">협력 대학</div>
+                    <div className="text-4xl font-bold text-gray-800">3<span className="text-xl text-gray-400 ml-1">개</span></div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -74,95 +122,58 @@ export default function EmploymentPage() {
         </div>
       </section>
 
-      {/* Program Structure Section */}
-      <section className="py-20 bg-gray-50/50">
+      {/* 3. Program Structure - Horizontal Steps */}
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-semibold text-[#005bac] mb-4">프로그램 구조</h2>
-            <p className="text-lg text-gray-500">체계적인 3단계 프로세스</p>
-          </motion.div>
+          <div className="text-center mb-16">
+            <span className="text-[#004094] font-bold tracking-widest uppercase text-sm">Process</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">프로그램 구조</h2>
+            <p className="text-gray-500 mt-4">체계적인 3단계 프로세스로 운영됩니다</p>
+          </div>
 
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 phase: '01',
                 title: '학생 모집',
-                color: 'blue',
-                description: '동국대, 중앙대, 건국대 국제처와의 협력을 통한 우수 인재 선발',
-                details: [
-                  '26명 사전 선발 완료',
-                  'TOPIK 4급 이상, 비자 및 전공 확인',
-                  '인성 및 역량 평가 실시'
-                ]
+                desc: '동국대, 중앙대, 건국대 국제처와의 협력을 통한 우수 인재 선발',
+                items: ['26명 사전 선발 완료', 'TOPIK 4급 이상, 비자 및 전공 확인', '인성 및 역량 평가 실시']
               },
               {
                 phase: '02',
                 title: '역량 강화 교육',
-                color: 'orange',
-                description: '생성형 AI를 활용한 해외시장 진출 시장조사 설계 역량 강화',
-                details: [
-                  '생성형 AI 활용 시장조사 방법론',
-                  '리포트 작성 실무 교육',
-                  '한국 기업문화 이해 프로그램'
-                ]
+                desc: '생성형 AI를 활용한 해외시장 진출 시장조사 설계 역량 강화',
+                items: ['생성형 AI 활용 시장조사 방법론', '리포트 작성 실무 교육', '한국 기업문화 이해 프로그램']
               },
               {
                 phase: '03',
                 title: '인턴십 매칭',
-                color: 'green',
-                description: '회원사와의 전략적 매칭 및 채용 연계',
-                details: [
-                  '44개 인턴십 포지션 확보',
-                  '포트폴리오 플랫폼 공유',
-                  '시간제 취업 허가 지원'
-                ]
+                desc: '회원사와의 전략적 매칭 및 채용 연계',
+                items: ['44개 인턴십 포지션 확보', '포트폴리오 플랫폼 공유', '시간제 취업 허가 지원']
               }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
+            ].map((step, idx) => (
+              <motion.div 
+                key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`bg-white p-8 rounded-lg border-2 shadow-sm hover:shadow-lg transition-all duration-300 ${
-                  item.color === 'blue' ? 'border-blue-200 hover:border-[#005bac]/50' :
-                  item.color === 'orange' ? 'border-orange-200 hover:border-[#ff6600]/50' :
-                  'border-green-200 hover:border-green-500/50'
-                }`}
+                transition={{ delay: idx * 0.2 }}
+                className="relative bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border-t-4 border-[#004094] group"
               >
-                <div className="flex items-start gap-6">
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-semibold flex-shrink-0 text-white ${
-                    item.color === 'blue' ? 'bg-[#005bac]' :
-                    item.color === 'orange' ? 'bg-[#ff6600]' :
-                    'bg-green-600'
-                  }`}>
-                    {item.phase}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className={`text-xl font-semibold mb-2 ${
-                      item.color === 'blue' ? 'text-[#005bac]' :
-                      item.color === 'orange' ? 'text-[#ff6600]' :
-                      'text-green-600'
-                    }`}>{item.title}</h3>
-                    <p className="text-gray-600 mb-4">{item.description}</p>
-                    <div className="space-y-2">
-                      {item.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <CheckCircle className={`w-5 h-5 ${
-                            item.color === 'blue' ? 'text-blue-400' :
-                            item.color === 'orange' ? 'text-orange-400' :
-                            'text-green-400'
-                          }`} />
-                          <span className="text-gray-700">{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <div className="absolute -top-6 left-8 w-12 h-12 bg-[#004094] text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
+                  {step.phase}
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <p className="text-sm text-gray-600 mb-6 min-h-[40px]">{step.desc}</p>
+                  <ul className="space-y-2">
+                    {step.items.map((item, i) => (
+                      <li key={i} className="flex items-start text-sm text-gray-700">
+                        <CheckCircle className="w-4 h-4 text-[#ff6600] mr-2 mt-0.5 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
             ))}
@@ -170,129 +181,77 @@ export default function EmploymentPage() {
         </div>
       </section>
 
-      {/* Curriculum Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-blue-50/30">
+      {/* 4. Curriculum & Schedule - 2 Column Layout */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-white p-6 md:p-12 rounded-xl border-2 border-blue-100 shadow-sm -mx-6 md:mx-0"
-          >
-            <h2 className="text-xl md:text-2xl font-semibold text-[#005bac] mb-6 md:mb-8 text-center">교육 커리큘럼</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              <div className="p-6 md:p-8 bg-gradient-to-br from-blue-50 to-white rounded-lg border-2 border-blue-200">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-[#005bac] rounded-lg flex items-center justify-center">
-                    <Briefcase className="w-6 h-6 text-white" />
+          <div className="grid lg:grid-cols-2 gap-16">
+            
+            {/* Curriculum */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-10 flex items-center">
+                <Briefcase className="w-8 h-8 text-[#004094] mr-3" />
+                교육 커리큘럼
+              </h2>
+              <div className="space-y-6">
+                <div className="bg-blue-50 p-8 rounded-2xl border border-blue-100">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-bold text-[#004094]">토요일 프로그램</h3>
+                    <span className="bg-white px-3 py-1 rounded-full text-sm font-bold text-[#004094] shadow-sm">80시간</span>
                   </div>
-                  <div>
-                    <h3 className="text-base md:text-lg font-semibold text-[#005bac]">토요일 프로그램</h3>
-                    <p className="text-sm text-gray-600">80시간</p>
-                  </div>
+                  <ul className="grid grid-cols-2 gap-3">
+                    {['디지털 마케팅 기초', '텍스트 및 이미지 생성형 AI', '시뮬레이션 기반 리서치', '개인별 리포트 작성'].map((item) => (
+                      <li key={item} className="flex items-center text-gray-700 text-sm">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#004094] mr-2" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#005bac] mt-1">•</span>
-                    <span className="text-gray-700">디지털 마케팅 기초</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#005bac] mt-1">•</span>
-                    <span className="text-gray-700">텍스트 및 이미지 생성형 AI</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#005bac] mt-1">•</span>
-                    <span className="text-gray-700">시뮬레이션 기반 리서치</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#005bac] mt-1">•</span>
-                    <span className="text-gray-700">개인별 리포트 작성</span>
-                  </li>
-                </ul>
-              </div>
 
-              <div className="p-6 md:p-8 bg-gradient-to-br from-orange-50 to-white rounded-lg border-2 border-orange-200">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-[#ff6600] rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-white" />
+                <div className="bg-orange-50 p-8 rounded-2xl border border-orange-100">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-bold text-[#ff6600]">평일 저녁 프로그램</h3>
+                    <span className="bg-white px-3 py-1 rounded-full text-sm font-bold text-[#ff6600] shadow-sm">30시간</span>
                   </div>
-                  <div>
-                    <h3 className="text-base md:text-lg font-semibold text-[#ff6600]">평일 저녁 프로그램</h3>
-                    <p className="text-sm text-gray-600">30시간</p>
-                  </div>
+                  <ul className="grid grid-cols-2 gap-3">
+                    {['AI 활용 보고서 작성', '한국 기업문화 이해', '퍼스널 브랜딩 기초', '비즈니스 커뮤니케이션'].map((item) => (
+                      <li key={item} className="flex items-center text-gray-700 text-sm">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#ff6600] mr-2" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#ff6600] mt-1">•</span>
-                    <span className="text-gray-700">AI 활용 보고서 작성</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#ff6600] mt-1">•</span>
-                    <span className="text-gray-700">한국 기업문화 이해</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#ff6600] mt-1">•</span>
-                    <span className="text-gray-700">퍼스널 브랜딩 기초</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#ff6600] mt-1">•</span>
-                    <span className="text-gray-700">비즈니스 커뮤니케이션</span>
-                  </li>
-                </ul>
               </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Timeline Section */}
-      <section className="py-20 bg-gray-50/50">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-white p-6 md:p-12 rounded-xl border-2 border-[#005bac]/20 shadow-sm -mx-6 md:mx-0"
-          >
-            <h2 className="text-2xl font-semibold text-[#005bac] mb-8 text-center">프로그램 일정</h2>
-            <div className="relative">
-              <div className="md:hidden absolute left-6 top-0 w-px h-full bg-gradient-to-b from-[#005bac] to-[#ff6600]"></div>
-              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#005bac] to-[#ff6600]"></div>
-              {[
-                { date: '2025년 4월', title: '모집', desc: '420명 지원, 20명 선발', color: 'blue' },
-                { date: '2025년 4-6월', title: '교육', desc: '10주 집중 교육 프로그램', color: 'orange' },
-                { date: '2025년 6월', title: '매칭', desc: '기업-학생 매칭 진행', color: 'green' },
-                { date: '2025년 7-8월', title: '인턴십', desc: '2개월 전액 지원 인턴십', color: 'purple' },
-                { date: '2025년 9월+', title: '채용', desc: 'D-10 비자 전환 및 정규직 채용', color: 'blue' }
-              ].map((item, i) => (
-                <div key={i} className={`relative mb-8 md:flex md:items-center ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
-                  <div className={`w-full md:w-5/12 pl-10 ${i % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'}`}>
-                    <div className={`p-6 bg-white rounded-lg border-2 shadow-sm hover:shadow-md transition-all ${
-                      item.color === 'blue' ? 'border-blue-200 hover:border-[#005bac]/50' :
-                      item.color === 'orange' ? 'border-orange-200 hover:border-[#ff6600]/50' :
-                      item.color === 'green' ? 'border-green-200 hover:border-green-500/50' :
-                      'border-purple-200 hover:border-purple-500/50'
-                    }`}>
-                      <div className={`text-sm font-semibold mb-1 ${
-                        item.color === 'blue' ? 'text-[#005bac]' :
-                        item.color === 'orange' ? 'text-[#ff6600]' :
-                        item.color === 'green' ? 'text-green-600' :
-                        'text-purple-600'
-                      }`}>{item.date}</div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-                      <p className="text-gray-600 text-sm">{item.desc}</p>
+            {/* Schedule - Clean Timeline */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-10 flex items-center">
+                <Calendar className="w-8 h-8 text-[#ff6600] mr-3" />
+                프로그램 일정
+              </h2>
+              <div className="relative pl-8 border-l-2 border-gray-100 space-y-10">
+                {[
+                  { date: '2025년 4월', title: '모집', desc: '420명 지원, 20명 선발' },
+                  { date: '2025년 4-6월', title: '교육', desc: '10주 집중 교육 프로그램' },
+                  { date: '2025년 6월', title: '매칭', desc: '기업-학생 매칭 진행' },
+                  { date: '2025년 7-8월', title: '인턴십', desc: '2개월 전액 지원 인턴십' },
+                  { date: '2025년 9월+', title: '채용', desc: 'D-10 비자 전환 및 정규직 채용' }
+                ].map((item, idx) => (
+                  <div key={idx} className="relative">
+                    <div className={`absolute -left-[41px] top-1 w-5 h-5 rounded-full border-4 border-white shadow-sm ${idx % 2 === 0 ? 'bg-[#004094]' : 'bg-[#ff6600]'}`} />
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-1">
+                      <span className="text-sm font-bold text-gray-400 uppercase tracking-wide">{item.date}</span>
+                      <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                     </div>
+                    <p className="text-gray-600 text-sm">{item.desc}</p>
                   </div>
-                  <div className={`absolute top-1/2 left-6 md:left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-4 border-white ${
-                    item.color === 'blue' ? 'bg-[#005bac]' :
-                    item.color === 'orange' ? 'bg-[#ff6600]' :
-                    item.color === 'green' ? 'bg-green-600' :
-                    'bg-purple-600'
-                  }`}></div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </motion.div>
+
+          </div>
         </div>
       </section>
     </div>
