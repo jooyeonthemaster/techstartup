@@ -22,16 +22,11 @@ export default function Home() {
             <BusinessPlan2025Section />
           </div>
           
-          {/* 공지사항, 보도자료, 회원사 소개 섹션 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* 공지사항, 보도자료 섹션 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <LatestListCompact
               title="공지사항"
               moreHref="/news/notice"
-              items={[
-                { id: 'n1', title: '[제8회 2025년 대한민국 강소기업 대상] 접수 안내', href: '/news/notice', date: '2025-09-01' },
-                { id: 'n2', title: '[강기업 사관학교] 멀티 관리자 기획력 향상 과정 모집', href: '/news/notice' },
-                { id: 'n3', title: '추석 선물세트 판매 안내', href: '/news/notice' },
-              ]}
             />
             <LatestListCompact
               title="보도자료"
@@ -40,15 +35,6 @@ export default function Home() {
                 { id: 'p1', title: "[중소기업신문] 한국강소기업협회·중소기업신문 MOU 체결", href: '/news/press', date: '2024-07-02' },
                 { id: 'p2', title: "[중앙일보] '제6회 2024 대한민국 강소기업 대상' 성료", href: '/news/press' },
                 { id: 'p3', title: "[중소기업신문] 상생협력 실천하는 '강소기업 협회'", href: '/news/press' },
-              ]}
-            />
-            <LatestListCompact
-              title="회원사 소개"
-              moreHref="/members"
-              items={[
-                { id: 'm1', title: '더오포', href: '/members' },
-                { id: 'm2', title: '주식회사 일신환경', href: '/members' },
-                { id: 'm3', title: '(주)브라이트스타로지스틱스', href: '/members' },
               ]}
             />
           </div>

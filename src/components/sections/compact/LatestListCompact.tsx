@@ -14,7 +14,7 @@ export interface LatestItem {
 
 interface LatestListCompactProps {
   title: string
-  items: LatestItem[]
+  items?: LatestItem[]
   moreHref: string
 }
 
@@ -43,25 +43,31 @@ export default function LatestListCompact({ title, items, moreHref }: LatestList
       </div>
 
       {/* List */}
-      <ul className="space-y-4">
-        {items.map((item) => (
-          <li key={item.id}>
-            <Link href={item.href} className="group block">
-              <div className="flex justify-between items-start gap-4">
-                <span className="text-sm text-gray-700 group-hover:text-[#004094] transition-colors leading-snug line-clamp-2">
-                  {item.title}
-                </span>
-                {item.date && (
-                  <div className="flex items-center text-xs text-gray-400 whitespace-nowrap mt-0.5">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {item.date}
-                  </div>
-                )}
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {items && items.length > 0 ? (
+        <ul className="space-y-4">
+          {items.map((item) => (
+            <li key={item.id}>
+              <Link href={item.href} className="group block">
+                <div className="flex justify-between items-start gap-4">
+                  <span className="text-sm text-gray-700 group-hover:text-[#004094] transition-colors leading-snug line-clamp-2">
+                    {item.title}
+                  </span>
+                  {item.date && (
+                    <div className="flex items-center text-xs text-gray-400 whitespace-nowrap mt-0.5">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {item.date}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="text-center py-8">
+          <p className="text-sm text-gray-400">등록된 내용이 없습니다.</p>
+        </div>
+      )}
     </motion.div>
   )
 }
