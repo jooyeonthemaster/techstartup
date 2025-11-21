@@ -4,6 +4,7 @@ import GoogleMapEmbed from '@/components/ui/google-map-embed'
 import LatestListCompact from '@/components/sections/compact/LatestListCompact'
 import BusinessPlan2025Section from '@/components/sections/BusinessPlan2025Section'
 import BusinessPlusCompact from '@/components/sections/compact/BusinessPlusCompact'
+import { pressReleases } from '@/data/press'
 
 
 export default function Home() {
@@ -31,11 +32,12 @@ export default function Home() {
             <LatestListCompact
               title="보도자료"
               moreHref="/news/press"
-              items={[
-                { id: 'p1', title: "[중소기업신문] 한국강소기업협회·중소기업신문 MOU 체결", href: '/news/press', date: '2024-07-02' },
-                { id: 'p2', title: "[중앙일보] '제6회 2024 대한민국 강소기업 대상' 성료", href: '/news/press' },
-                { id: 'p3', title: "[중소기업신문] 상생협력 실천하는 '강소기업 협회'", href: '/news/press' },
-              ]}
+              items={pressReleases.slice(0, 3).map((release) => ({
+                id: `p${release.id}`,
+                title: `[${release.media}] ${release.title}`,
+                href: release.url,
+                date: release.date
+              }))}
             />
           </div>
         </div>

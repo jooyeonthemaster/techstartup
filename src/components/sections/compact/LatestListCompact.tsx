@@ -45,23 +45,31 @@ export default function LatestListCompact({ title, items, moreHref }: LatestList
       {/* List */}
       {items && items.length > 0 ? (
         <ul className="space-y-4">
-          {items.map((item) => (
-            <li key={item.id}>
-              <Link href={item.href} className="group block">
-                <div className="flex justify-between items-start gap-4">
-                  <span className="text-sm text-gray-700 group-hover:text-[#004094] transition-colors leading-snug line-clamp-2">
-                    {item.title}
-                  </span>
-                  {item.date && (
-                    <div className="flex items-center text-xs text-gray-400 whitespace-nowrap mt-0.5">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      {item.date}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            </li>
-          ))}
+          {items.map((item) => {
+            const isExternal = item.href.startsWith('http')
+            const LinkComponent = isExternal ? 'a' : Link
+            const linkProps = isExternal 
+              ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
+              : { href: item.href }
+            
+            return (
+              <li key={item.id}>
+                <LinkComponent {...linkProps} className="group block">
+                  <div className="flex justify-between items-start gap-4">
+                    <span className="text-sm text-gray-700 group-hover:text-[#004094] transition-colors leading-snug line-clamp-2">
+                      {item.title}
+                    </span>
+                    {item.date && (
+                      <div className="flex items-center text-xs text-gray-400 whitespace-nowrap mt-0.5">
+                        <Calendar className="w-3 h-3 mr-1" />
+                        {item.date}
+                      </div>
+                    )}
+                  </div>
+                </LinkComponent>
+              </li>
+            )
+          })}
         </ul>
       ) : (
         <div className="text-center py-8">

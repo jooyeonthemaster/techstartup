@@ -27,12 +27,12 @@ export default function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Phone</h3>
-                  <p className="text-xl text-gray-900 font-medium">010-3721-0204</p>
+                  <p className="text-xl text-gray-900 font-medium">02-336-0250</p>
                   <p className="text-sm text-gray-500 mt-2">평일 09:00 - 18:00</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Email</h3>
-                  <p className="text-xl text-gray-900 font-medium">info@techventure.or.kr</p>
+                  <p className="text-xl text-gray-900 font-medium">tvs@techventure.co.kr</p>
                   <p className="text-sm text-gray-500 mt-2">24시간 접수 가능</p>
                 </div>
                 <div>

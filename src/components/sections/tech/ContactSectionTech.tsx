@@ -232,7 +232,7 @@ export default function ContactSectionTech() {
                 <div className="flex items-center space-x-4 p-4 bg-muted/10 rounded border border-border/30">
                   <Phone className="w-5 h-5 text-foreground" />
                   <div>
-                    <div className="font-medium text-foreground">02-1234-5678</div>
+                    <div className="font-medium text-foreground">02-336-0250</div>
                     <div className="text-sm text-muted-foreground">평일 09:00-18:00</div>
                   </div>
                 </div>
@@ -240,7 +240,7 @@ export default function ContactSectionTech() {
                 <div className="flex items-center space-x-4 p-4 bg-muted/10 rounded border border-border/30">
                   <Mail className="w-5 h-5 text-foreground" />
                   <div>
-                    <div className="font-medium text-foreground">info@techventure.or.kr</div>
+                    <div className="font-medium text-foreground">tvs@techventure.co.kr</div>
                     <div className="text-sm text-muted-foreground">24시간 접수</div>
                   </div>
                 </div>
