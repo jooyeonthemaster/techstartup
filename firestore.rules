@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 팝업: 누구나 읽기 가능, 인증된 사용자만 쓰기
+    match /popups/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // 배너: 누구나 읽기 가능, 인증된 사용자만 쓰기
+    match /banners/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // 뉴스: 누구나 읽기 가능, 인증된 사용자만 쓰기
+    match /news/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
