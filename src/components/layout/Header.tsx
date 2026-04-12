@@ -41,6 +41,11 @@ const menuItems = [
       { title: '모집대상', href: '/membership' },
       { title: '협회비', href: '/membership/fees' },
     ]
+  },
+  {
+    title: 'AI 사업평가',
+    href: '/ai-evaluation',
+    submenu: []
   }
 ]
 

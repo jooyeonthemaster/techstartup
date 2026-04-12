@@ -1,6 +1,28 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+
+    // ── AI 평가 원본 파일 (PDF/HWP/HWPX/PPTX/PPT/DOCX/DOC) ──
+    //
+    // 주의: HWP/HWPX는 브라우저가 보내는 Content-Type이 불안정(빈 문자열 or
+    //       octet-stream)하므로 MIME 화이트리스트로 검증하면 거의 반드시 실패한다.
+    //       따라서 파일 이름 확장자로 검증한다.
+    match /evaluations/{evalId}/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.size < 50 * 1024 * 1024
+                   && (
+                     fileName.lower().matches('.*\\.pdf')
+                     || fileName.lower().matches('.*\\.hwp')
+                     || fileName.lower().matches('.*\\.hwpx')
+                     || fileName.lower().matches('.*\\.pptx')
+                     || fileName.lower().matches('.*\\.ppt')
+                     || fileName.lower().matches('.*\\.docx')
+                     || fileName.lower().matches('.*\\.doc')
+                   );
+    }
+
+    // ── 기본(이미지 업로드 등) — 기존 동작 유지 ──
     match /{allPaths=**} {
       allow read: if true;
       allow write: if request.auth != null

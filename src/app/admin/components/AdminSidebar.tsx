@@ -9,6 +9,7 @@ import {
   Megaphone,
   ImageIcon,
   Newspaper,
+  Brain,
   LogOut,
 } from 'lucide-react'
 
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
   { href: '/admin/popups', icon: Megaphone, label: '팝업 관리' },
   { href: '/admin/banners', icon: ImageIcon, label: '배너 관리' },
   { href: '/admin/news', icon: Newspaper, label: '뉴스 관리' },
+  { href: '/admin/ai-evaluation', icon: Brain, label: 'AI 평가' },
 ]
 
 export default function AdminSidebar() {

@@ -5,6 +5,7 @@ import {
   where,
   orderBy,
   limit,
+  startAfter,
   Timestamp,
   type DocumentData,
   type QueryDocumentSnapshot,
@@ -13,6 +14,11 @@ import {
 } from 'firebase/firestore'
 import { db } from './config'
 import type { Popup, Banner, NewsArticle } from '@/types/admin'
+import type {
+  EvaluationPackage,
+  EvaluationDoc,
+  EvaluationChatMessage,
+} from '@/types/ai-evaluation'
 
 // ============================================================
 // Firestore Converters (type-safe read/write)
@@ -129,3 +135,106 @@ export const allNewsQuery = (category?: string) => {
   }
   return query(newsCollection, orderBy('created_at', 'desc'))
 }
+
+// ============================================================
+// AI Evaluation v2 — Packages (multi-agent) & Evaluations
+// ============================================================
+
+const evaluationPackageConverter = createConverter<EvaluationPackage>()
+const evaluationConverter = createConverter<EvaluationDoc>()
+const evaluationChatConverter = createConverter<EvaluationChatMessage>()
+
+/**
+ * Firestore 컬렉션 이름: `evaluationPackages` (v2).
+ * v1의 `evaluationPrompts`를 대체. 시드 데이터가 없었으므로 충돌 없이 교체.
+ */
+export const evaluationPackagesCollection = collection(db, 'evaluationPackages').withConverter(
+  evaluationPackageConverter
+)
+export const evaluationPackageDoc = (id: string) =>
+  doc(db, 'evaluationPackages', id).withConverter(evaluationPackageConverter)
+
+export const evaluationsCollection = collection(db, 'evaluations').withConverter(
+  evaluationConverter
+)
+export const evaluationDoc = (id: string) =>
+  doc(db, 'evaluations', id).withConverter(evaluationConverter)
+
+export const evaluationChatsCollection = (evalId: string) =>
+  collection(db, 'evaluations', evalId, 'chats').withConverter(evaluationChatConverter)
+
+/**
+ * 활성 패키지 목록 (일반 사용자 /new 플로우).
+ *
+ * Composite index required:
+ *   Collection: evaluationPackages
+ *   Fields: isActive (==), createdAt (desc)
+ */
+export const activePackagesQuery = () =>
+  query(
+    evaluationPackagesCollection,
+    where('isActive', '==', true),
+    orderBy('createdAt', 'desc')
+  )
+
+/** 모든 패키지 (관리자용) */
+export const allPackagesQuery = () =>
+  query(evaluationPackagesCollection, orderBy('createdAt', 'desc'))
+
+/** 특정 패키지의 버전 체인 */
+export const packageVersionChainQuery = (rootId: string) =>
+  query(
+    evaluationPackagesCollection,
+    where('parentId', '==', rootId),
+    orderBy('version', 'desc')
+  )
+
+/**
+ * 사용자 본인 평가 히스토리 (아카이브 제외, 최신순, 페이지네이션).
+ *
+ * Composite index required:
+ *   Collection: evaluations
+ *   Fields: createdBy (asc), isArchived (asc), createdAt (desc)
+ */
+export const userEvaluationsQuery = (
+  uid: string,
+  cursor?: QueryDocumentSnapshot,
+  pageSize = 20
+) => {
+  const constraints: QueryConstraint[] = [
+    where('createdBy', '==', uid),
+    where('isArchived', '==', false),
+    orderBy('createdAt', 'desc'),
+    limit(pageSize),
+  ]
+  if (cursor) {
+    constraints.splice(3, 0, startAfter(cursor))
+  }
+  return query(evaluationsCollection, ...constraints)
+}
+
+/**
+ * 관리자 전체 평가 조회 (패키지/상태 필터 옵션).
+ *
+ * Composite indexes required (상황별):
+ *   - packageId (==), createdAt (desc)
+ *   - status (==), createdAt (desc)
+ */
+export const adminEvaluationsQuery = (
+  filters: { packageId?: string; status?: string } = {},
+  cursor?: QueryDocumentSnapshot,
+  pageSize = 30
+) => {
+  const constraints: QueryConstraint[] = []
+  if (filters.packageId) constraints.push(where('packageId', '==', filters.packageId))
+  if (filters.status) constraints.push(where('status', '==', filters.status))
+  constraints.push(orderBy('createdAt', 'desc'), limit(pageSize))
+  if (cursor) {
+    constraints.splice(constraints.length - 1, 0, startAfter(cursor))
+  }
+  return query(evaluationsCollection, ...constraints)
+}
+
+/** 평가별 챗 로그 (최근 순 로드, 클라이언트에서 reverse) */
+export const evaluationChatsQuery = (evalId: string, maxItems = 50) =>
+  query(evaluationChatsCollection(evalId), orderBy('createdAt', 'asc'), limit(maxItems))

@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signInWithEmailAndPassword,
+  signInAnonymously,
   signOut as firebaseSignOut,
   GoogleAuthProvider,
   type User,
@@ -17,6 +18,7 @@ interface AuthContextType {
   isAdmin: boolean
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string, password: string) => Promise<void>
+  signInAsGuest: () => Promise<void>
   signOut: () => Promise<void>
 }
 
@@ -26,6 +28,7 @@ const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   signInWithGoogle: async () => {},
   signInWithEmail: async () => {},
+  signInAsGuest: async () => {},
   signOut: async () => {},
 })
 
@@ -57,12 +60,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password)
   }, [])
 
+  const signInAsGuest = useCallback(async () => {
+    await signInAnonymously(auth)
+  }, [])
+
   const signOut = useCallback(async () => {
     await firebaseSignOut(auth)
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin, signInWithGoogle, signInWithEmail, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin, signInWithGoogle, signInWithEmail, signInAsGuest, signOut }}>
       {children}
     </AuthContext.Provider>
   )

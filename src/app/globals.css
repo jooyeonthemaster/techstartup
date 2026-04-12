@@ -114,6 +114,47 @@
   --container-2xl: 1400px;
 }
 
+/* ── Custom Scrollbar (global) ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a5d8ed transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7dd3e8 0%, #a5c4e0 50%, #93b8d7 100%);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #38bdf8 0%, #60a5fa 50%, #818cf8 100%);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -136,6 +177,6 @@
     @apply text-xl font-semibold tracking-tight;
   }
   p {
-    @apply leading-7 [&:not(:first-child)]:mt-6;
+    @apply leading-7;
   }
 }
