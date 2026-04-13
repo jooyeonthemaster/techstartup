@@ -1,15 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FilePlus, History } from 'lucide-react'
 
+function getSkipIntro() {
+  if (typeof window === 'undefined') return false
+  return new URLSearchParams(window.location.search).get('skip') === '1'
+}
+
 export default function AIEvaluationLandingPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const skipIntro = searchParams.get('skip') === '1'
-  const [appState, setAppState] = useState<'locked' | 'opening' | 'idle'>(skipIntro ? 'idle' : 'locked')
+  const [appState, setAppState] = useState<'locked' | 'opening' | 'idle'>(() => getSkipIntro() ? 'idle' : 'locked')
 
   const handleEnter = () => {
     setAppState('opening')
