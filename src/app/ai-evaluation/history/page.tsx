@@ -188,7 +188,7 @@ export default function HistoryPage() {
   // ─── Auth gates ──────────────────────────────────
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] pt-[72px] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="w-6 h-6 text-[#0A0A0A] animate-spin" />
           <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#737373]">
@@ -205,7 +205,7 @@ export default function HistoryPage() {
 
   // ─── Main render ─────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pt-[72px]">
+    <div className="min-h-screen bg-[#FAFAFA]">
       <HistoryHeader stats={stats} />
 
       <HistoryFilterBar

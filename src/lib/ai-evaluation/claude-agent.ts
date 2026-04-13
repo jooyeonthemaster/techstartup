@@ -243,8 +243,22 @@ export async function callAnalysisAgent(
   }
 
   // Server-side injection: agentId/agentRole MUST NOT come from Claude.
+  const raw = toolBlock.input as Record<string, unknown>
+
+  // Claude sometimes returns citations as a JSON string instead of an array.
+  if (typeof raw.citations === 'string') {
+    try {
+      const parsed = JSON.parse(raw.citations)
+      raw.citations = Array.isArray(parsed) ? parsed : []
+    } catch {
+      raw.citations = []
+    }
+  } else if (raw.citations && !Array.isArray(raw.citations)) {
+    raw.citations = []
+  }
+
   const perspective: AgentPerspective = {
-    ...(toolBlock.input as unknown as Omit<AgentPerspective, 'agentId' | 'agentRole'>),
+    ...(raw as unknown as Omit<AgentPerspective, 'agentId' | 'agentRole'>),
     agentId: agent.id,
     agentRole: agent.role,
   }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR, Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import LayoutShell from "@/components/layout/LayoutShell";
 import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
@@ -43,11 +42,7 @@ export default function RootLayout({
         className={`${notoSansKr.variable} ${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
         <AuthProvider>
-          <div className="min-h-screen bg-background text-foreground">
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </div>
+          <LayoutShell>{children}</LayoutShell>
         </AuthProvider>
       </body>
     </html>

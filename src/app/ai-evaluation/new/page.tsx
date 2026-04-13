@@ -203,7 +203,7 @@ export default function NewEvaluationPage() {
   // ── 로딩/로그인 가드 ───────────────────────────────
   if (authLoading) {
     return (
-      <div className="min-h-[calc(100vh-72px)] mt-[72px] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="w-6 h-6 animate-spin text-[#737373]" />
       </div>
     )
@@ -223,7 +223,7 @@ export default function NewEvaluationPage() {
   stepsData.push({ id: 'uploading', label: '스마트 분석 진행' })
 
   return (
-    <div className="min-h-[calc(100vh-72px)] mt-[72px] relative overflow-x-hidden bg-slate-50 font-sans pb-24">
+    <div className="min-h-screen relative overflow-x-hidden bg-slate-50 font-sans pb-24">
       {/* Background Orbs */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-5%] w-[60vw] h-[60vw] bg-cyan-200/40 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
@@ -233,7 +233,7 @@ export default function NewEvaluationPage() {
 
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10 pt-10">
         <Link
-          href="/ai-evaluation"
+          href="/ai-evaluation?skip=1"
           className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.1em] text-slate-500 hover:text-cyan-600 transition-colors mb-8 bg-white/50 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-sm hover:shadow-md"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -568,7 +568,7 @@ function GuestGate({
   }
 
   return (
-    <div className="min-h-[calc(100vh-72px)] mt-[72px] flex items-center justify-center bg-[#FAFAFA]">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
       <div className="w-full max-w-sm px-6">
         <div className="bg-white border border-[#E5E5E5] p-10">
           <h3 className="text-[18px] font-bold text-[#0A0A0A] mb-2 text-center">
@@ -610,7 +610,7 @@ function GuestGate({
           </div>
 
           <Link
-            href="/ai-evaluation"
+            href="/ai-evaluation?skip=1"
             className="block mt-4 text-center text-[11px] text-[#A3A3A3] font-medium hover:text-[#0A0A0A] transition-colors"
           >
             돌아가기

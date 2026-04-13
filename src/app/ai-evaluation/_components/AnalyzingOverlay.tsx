@@ -79,7 +79,7 @@ export default function AnalyzingOverlay({
     (status === 'analyzing' || status === 'synthesizing' || status === 'finalizing')
 
   return (
-    <div className="min-h-[calc(100vh-72px)] mt-[72px] flex items-center justify-center bg-[#FAFAFA] py-16">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA] py-16">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

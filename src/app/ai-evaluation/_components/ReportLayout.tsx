@@ -138,7 +138,7 @@ export default function ReportLayout({
 
       <AiChatPanel evaluationId={evaluation.id} />
 
-      <main className="max-w-[1400px] mx-auto px-8 pb-20 pt-[180px]">
+      <main className="max-w-[1400px] mx-auto px-8 pb-20 pt-[120px]">
         <SynthesisSection
           synthesis={synthesis}
           agents={pkg.agents}

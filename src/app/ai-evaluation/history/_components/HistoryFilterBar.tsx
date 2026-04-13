@@ -32,7 +32,7 @@ export default function HistoryFilterBar({
   totalCount,
 }: Props) {
   return (
-    <div className="sticky top-[72px] z-20 bg-[#FAFAFA]/95 backdrop-blur-sm border-b border-[#E5E5E5]">
+    <div className="sticky top-0 z-20 bg-[#FAFAFA]/95 backdrop-blur-sm border-b border-[#E5E5E5]">
       <div className="max-w-[1280px] mx-auto px-6 py-4">
         <div className="flex flex-col lg:flex-row lg:items-center gap-4">
           {/* Search */}

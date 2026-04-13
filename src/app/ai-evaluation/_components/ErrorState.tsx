@@ -12,7 +12,7 @@ export default function ErrorState({
   onNewEvaluation: () => void
 }) {
   return (
-    <div className="min-h-[calc(100vh-72px)] mt-[72px] flex items-center justify-center bg-[#FAFAFA]">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
       <div className="w-full max-w-md text-center px-6">
         <div className="bg-white border border-[#B91C1C] p-12">
           <div className="w-12 h-12 mx-auto mb-6 border border-[#B91C1C] flex items-center justify-center">

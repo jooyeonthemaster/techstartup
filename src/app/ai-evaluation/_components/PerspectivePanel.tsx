@@ -36,8 +36,17 @@ export default function PerspectivePanel({
   const gradeLabel = GRADE_CONFIG[perspective.grade]?.label ?? perspective.gradeLabel
 
   // 구조화 필드 (v2.1) vs 레거시 fallback
-  const hasStructured = !!(perspective.summaryHighlights?.length)
+  const summaryHighlights = Array.isArray(perspective.summaryHighlights) ? perspective.summaryHighlights : []
+  const hasStructured = summaryHighlights.length > 0
   const legacySummary = perspective.summary ?? ''
+
+  // Claude가 배열 대신 문자열을 반환하는 경우 방어
+  const strengths = Array.isArray(perspective.strengths) ? perspective.strengths : []
+  const weaknesses = Array.isArray(perspective.weaknesses) ? perspective.weaknesses : []
+  const opportunities = Array.isArray(perspective.opportunities) ? perspective.opportunities : []
+  const recommendations = Array.isArray(perspective.recommendations) ? perspective.recommendations : []
+  const detailedFindings = Array.isArray(perspective.detailedFindings) ? perspective.detailedFindings : []
+  const citations = Array.isArray(perspective.citations) ? perspective.citations : []
 
   return (
     <section
@@ -117,7 +126,7 @@ export default function PerspectivePanel({
             분석 요약
           </p>
           <ul className="space-y-2.5">
-            {perspective.summaryHighlights!.map((item, idx) => (
+            {summaryHighlights.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
                 <span className="mt-[7px] w-1.5 h-1.5 bg-[#0A0A0A] shrink-0" />
                 <p className="text-[13px] text-[#404040] leading-relaxed">{item}</p>
@@ -142,13 +151,13 @@ export default function PerspectivePanel({
           icon={<TrendingUp className="w-3.5 h-3.5 text-[#047857]" />}
           label="강점"
           accent="#047857"
-          findings={perspective.strengths}
+          findings={strengths}
         />
         <FindingList
           icon={<TrendingDown className="w-3.5 h-3.5 text-[#B91C1C]" />}
           label="약점"
           accent="#B91C1C"
-          findings={perspective.weaknesses}
+          findings={weaknesses}
         />
       </div>
 
@@ -158,19 +167,19 @@ export default function PerspectivePanel({
           icon={<Lightbulb className="w-3.5 h-3.5 text-[#D97706]" />}
           label="기회 요인"
           accent="#D97706"
-          findings={perspective.opportunities}
+          findings={opportunities}
         />
-        <RecommendationList recommendations={perspective.recommendations} />
+        <RecommendationList recommendations={recommendations} />
       </div>
 
       {/* ─── Detailed findings — 세부 평가 항목 ─── */}
-      {perspective.detailedFindings?.length > 0 && (
+      {detailedFindings.length > 0 && (
         <div className="mb-8">
           <p className="text-[10px] font-semibold tracking-[0.1em] text-[#A3A3A3] mb-4">
             세부 평가 항목
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {perspective.detailedFindings.map((finding, idx) => (
+            {detailedFindings.map((finding, idx) => (
               <div
                 key={`${finding.focusArea}-${idx}`}
                 className="bg-white border border-[#E5E5E5] px-6 py-5"
@@ -201,13 +210,13 @@ export default function PerspectivePanel({
       )}
 
       {/* ─── Citations ─── */}
-      {perspective.citations && perspective.citations.length > 0 && (
+      {citations.length > 0 && (
         <div>
           <p className="text-[10px] font-semibold tracking-[0.1em] text-[#A3A3A3] mb-4">
             원문 인용
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {perspective.citations.map((citation, idx) => (
+            {citations.map((citation, idx) => (
               <div
                 key={idx}
                 className="bg-white border border-[#E5E5E5] p-5 flex items-start gap-4"
@@ -251,6 +260,8 @@ function FindingList({
   accent: string
   findings: AgentFinding[]
 }) {
+  const safe = Array.isArray(findings) ? findings : []
+
   return (
     <div className="bg-white border border-[#E5E5E5] p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#E5E5E5]">
@@ -267,15 +278,15 @@ function FindingList({
           {label}
         </p>
         <span className="text-[10px] font-medium text-[#A3A3A3] tabular-nums ml-auto">
-          {findings.length}
+          {safe.length}
         </span>
       </div>
 
-      {findings.length === 0 ? (
+      {safe.length === 0 ? (
         <p className="text-[11px] text-[#A3A3A3] italic">해당 항목이 없습니다.</p>
       ) : (
         <ul className="space-y-3 flex-1">
-          {findings.map((finding, idx) => (
+          {safe.map((finding, idx) => (
             <li key={idx} className="flex items-start gap-3">
               <span
                 className="mt-[6px] w-1.5 h-1.5 shrink-0"
@@ -305,6 +316,8 @@ function RecommendationList({
 }: {
   recommendations: AgentRecommendation[]
 }) {
+  const safeRecs = Array.isArray(recommendations) ? recommendations : []
+
   return (
     <div className="bg-white border border-[#E5E5E5] p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#E5E5E5]">
@@ -315,15 +328,15 @@ function RecommendationList({
           권고 사항
         </p>
         <span className="text-[10px] font-medium text-[#A3A3A3] tabular-nums ml-auto">
-          {recommendations.length}
+          {safeRecs.length}
         </span>
       </div>
 
-      {recommendations.length === 0 ? (
+      {safeRecs.length === 0 ? (
         <p className="text-[11px] text-[#A3A3A3] italic">추천 사항이 없습니다.</p>
       ) : (
         <ul className="space-y-3 flex-1">
-          {recommendations.map((rec, idx) => {
+          {safeRecs.map((rec, idx) => {
             const cfg = PRIORITY_CONFIG[rec.priority] ?? PRIORITY_CONFIG.medium
             return (
               <li

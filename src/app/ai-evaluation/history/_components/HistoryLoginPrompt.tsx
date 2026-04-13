@@ -24,11 +24,11 @@ export default function HistoryLoginPrompt() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pt-[72px] flex items-center justify-center px-6">
+    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-6">
       <div className="w-full max-w-md bg-white border border-[#E5E5E5] p-10 md:p-12">
         {/* Back */}
         <button
-          onClick={() => router.push('/ai-evaluation')}
+          onClick={() => router.push('/ai-evaluation?skip=1')}
           className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#737373] hover:text-[#0A0A0A] transition-colors mb-10"
         >
           <ArrowLeft className="w-3 h-3" />

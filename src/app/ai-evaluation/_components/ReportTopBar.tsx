@@ -77,7 +77,7 @@ export default function ReportTopBar({
   }, [evaluationId, user, isDownloading, downloadError])
 
   return (
-    <div className="fixed top-[72px] left-0 right-0 z-[60] bg-white border-b border-[#E5E5E5] h-14">
+    <div className="fixed top-0 left-0 right-0 z-[60] bg-white border-b border-[#E5E5E5] h-14">
       <div className="h-full max-w-[1400px] mx-auto px-8 flex items-center justify-between">
         <div className="flex items-center gap-4 min-w-0">
           <h1 className="text-[14px] font-bold text-[#0A0A0A] tracking-tight shrink-0">

@@ -35,7 +35,7 @@ export default function AgentTabs({
   const sortedAgents = [...agents].sort((a, b) => a.order - b.order)
 
   return (
-    <div className="fixed top-[128px] left-0 right-0 z-[55] bg-white border-b border-[#E5E5E5] h-[52px]">
+    <div className="fixed top-[56px] left-0 right-0 z-[55] bg-white border-b border-[#E5E5E5] h-[52px]">
       <div
         ref={containerRef}
         className="h-full overflow-x-auto scrollbar-hide flex items-stretch"

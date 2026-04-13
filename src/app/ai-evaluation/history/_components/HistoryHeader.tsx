@@ -18,7 +18,7 @@ export default function HistoryHeader({ stats }: { stats: HistoryStats }) {
       <div className="max-w-[1280px] mx-auto px-6 py-10">
         {/* Back */}
         <button
-          onClick={() => router.push('/ai-evaluation')}
+          onClick={() => router.push('/ai-evaluation?skip=1')}
           className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#737373] hover:text-[#0A0A0A] transition-colors mb-6"
         >
           <ArrowLeft className="w-3 h-3" />

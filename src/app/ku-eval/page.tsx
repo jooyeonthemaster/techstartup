@@ -1,15 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FilePlus, History } from 'lucide-react'
 
-export default function AIEvaluationLandingPage() {
+export default function KUEvaluationLandingPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const skipIntro = searchParams.get('skip') === '1'
-  const [appState, setAppState] = useState<'locked' | 'opening' | 'idle'>(skipIntro ? 'idle' : 'locked')
+  const [appState, setAppState] = useState<'locked' | 'opening' | 'idle'>('locked')
 
   const handleEnter = () => {
     setAppState('opening')
@@ -17,7 +15,7 @@ export default function AIEvaluationLandingPage() {
   }
 
   const titleLines = [
-    "사단법인 기술벤처 스타트업 협회",
+    "고려대학교 첨단기술비즈니스",
     "AI 사업계획서 분석 에이전트"
   ]
 
@@ -27,7 +25,7 @@ export default function AIEvaluationLandingPage() {
       <AnimatePresence>
         {(appState === 'locked' || appState === 'opening') && (
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black">
-            
+
             {/* Left Door */}
             <motion.div
               initial={{ x: 0 }}
@@ -35,12 +33,8 @@ export default function AIEvaluationLandingPage() {
               transition={{ duration: 1.5, ease: [0.77, 0, 0.17, 1], delay: 0.2 }}
               className="absolute left-0 top-0 bottom-0 w-1/2 z-20 overflow-hidden bg-[#02040A] border-r border-cyan-500/50 shadow-[10px_0_40px_rgba(6,182,212,0.3)]"
             >
-              {/* Full-width image carefully aligned to left */}
               <div className="absolute left-0 top-0 bottom-0 w-[100vw] bg-[url('https://images.unsplash.com/photo-1462826303086-329426d1aef5?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-70 mix-blend-screen blur-[8px]" />
-              {/* Techy overlays */}
               <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-[#02040A]/50 to-transparent" />
-              
-              {/* Door mechanism edge */}
               <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-cyan-400 shadow-[0_0_20px_#06b6d4]" />
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-48 bg-cyan-950/80 border border-cyan-400/50 flex flex-col justify-center items-center rounded-l-lg backdrop-blur-sm z-30">
                 <div className="w-1 h-20 bg-cyan-300 shadow-[0_0_15px_#22d3ee] rounded-full" />
@@ -54,12 +48,8 @@ export default function AIEvaluationLandingPage() {
               transition={{ duration: 1.5, ease: [0.77, 0, 0.17, 1], delay: 0.2 }}
               className="absolute right-0 top-0 bottom-0 w-1/2 z-20 overflow-hidden bg-[#02040A] border-l border-cyan-500/50 shadow-[-10px_0_40px_rgba(6,182,212,0.3)]"
             >
-              {/* Full-width image carefully aligned to right */}
               <div className="absolute right-0 top-0 bottom-0 w-[100vw] bg-[url('https://images.unsplash.com/photo-1462826303086-329426d1aef5?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-70 mix-blend-screen blur-[8px]" />
-              {/* Techy overlays */}
               <div className="absolute inset-0 bg-gradient-to-l from-white/5 via-[#02040A]/50 to-transparent" />
-              
-              {/* Door mechanism edge */}
               <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-400 shadow-[0_0_20px_#06b6d4]" />
               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-48 bg-cyan-950/80 border border-cyan-400/50 flex flex-col justify-center items-center rounded-r-lg backdrop-blur-sm z-30">
                 <div className="w-1 h-20 bg-cyan-300 shadow-[0_0_15px_#22d3ee] rounded-full" />
@@ -67,7 +57,7 @@ export default function AIEvaluationLandingPage() {
             </motion.div>
 
             {/* Center Glowing White Tech Area */}
-            <motion.div 
+            <motion.div
                initial={{ opacity: 1 }}
                animate={{ opacity: appState === 'opening' ? 0 : 1 }}
                transition={{ duration: 0.5 }}
@@ -84,32 +74,32 @@ export default function AIEvaluationLandingPage() {
                 scale: appState === 'opening' ? 1.15 : 1,
               }}
               transition={{ duration: 1.2, ease: "easeIn" }}
-              className="relative z-30 text-center flex flex-col items-center p-8 md:p-16 w-full max-w-5xl"
+              className="relative z-30 flex flex-col items-start p-8 md:p-16 w-full max-w-none ml-0 md:ml-[5vw] lg:ml-[8vw]"
             >
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="mb-8 flex flex-col items-center"
+                className="mb-8 flex flex-col items-start"
               >
                 <div className="w-20 h-[1px] bg-cyan-400 mb-6 shadow-[0_0_10px_#22d3ee]" />
                 <span className="text-[12px] md:text-[14px] font-semibold uppercase tracking-[0.3em] text-cyan-200" style={{ textShadow: '0 0 10px rgba(103,232,249,0.5)' }}>
                   Business Plan Evaluation System
                 </span>
               </motion.div>
-              
-              <h1 className="text-[28px] md:text-[42px] lg:text-[48px] font-extrabold text-white tracking-[-0.02em] leading-[1.4] mb-12 break-keep flex flex-col justify-center items-center gap-y-1 md:gap-y-3">
+
+              <h1 className="text-[28px] md:text-[42px] lg:text-[48px] font-extrabold text-white tracking-[-0.02em] leading-[1.4] mb-6 break-keep flex flex-col justify-start items-start gap-y-1 md:gap-y-3">
                 {titleLines.map((line, lineIndex) => (
-                  <div key={lineIndex} className="flex flex-wrap justify-center items-center gap-x-2">
+                  <div key={lineIndex} className="flex flex-wrap justify-start items-center gap-x-2">
                     {line.split(' ').map((word, wordIndex) => (
                       <span key={wordIndex} className="inline-flex overflow-hidden">
                         {word.split('').map((char, charIndex) => (
-                          <motion.span 
+                          <motion.span
                             key={`${lineIndex}-${wordIndex}-${charIndex}`}
                             initial={{ opacity: 0, y: 20, rotateX: 90 }}
                             animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                            transition={{ 
-                              duration: 0.5, 
+                            transition={{
+                              duration: 0.5,
                               delay: 0.8 + (lineIndex * 0.4) + (wordIndex * 0.15) + (charIndex * 0.05),
                               type: "spring",
                               stiffness: 100
@@ -126,11 +116,21 @@ export default function AIEvaluationLandingPage() {
                 ))}
               </h1>
 
-              <motion.div 
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 3, duration: 1 }}
+                className="text-[16px] md:text-[20px] font-bold text-white tracking-[0.15em] mb-12"
+                style={{ textShadow: '0 0 20px rgba(255,255,255,0.4)' }}
+              >
+                권리 보유 : 유선화
+              </motion.p>
+
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 3.5, duration: 1 }}
-                className="flex flex-col items-center"
+                className="flex flex-col items-start"
               >
                 <button
                   onClick={handleEnter}
@@ -139,7 +139,7 @@ export default function AIEvaluationLandingPage() {
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                   <span className="relative z-10 flex items-center">
                     시스템 진입
-                    <motion.span 
+                    <motion.span
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                       className="inline-block ml-4 text-cyan-300"
@@ -172,7 +172,7 @@ export default function AIEvaluationLandingPage() {
           <div className="relative z-10 w-full max-w-5xl flex flex-col items-center">
             {/* Hero */}
             <div className="text-center mb-16 relative">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -208,7 +208,7 @@ export default function AIEvaluationLandingPage() {
                 className="group relative overflow-hidden bg-white/70 backdrop-blur-xl border border-white/80 p-10 text-left transition-all duration-500 rounded-[2rem] hover:-translate-y-2 hover:bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(6,182,212,0.2)]"
               >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-400/10 to-blue-500/10 blur-[40px] rounded-full group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-                
+
                 <div className="relative z-10 w-full">
                   <div className="w-14 h-14 rounded-2xl border-0 bg-gradient-to-br from-cyan-50 to-blue-50 flex items-center justify-center mb-8 shadow-inner group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                     <FilePlus className="w-6 h-6 text-cyan-600 group-hover:text-cyan-500 transition-colors" />
@@ -240,7 +240,7 @@ export default function AIEvaluationLandingPage() {
                 className="group relative overflow-hidden bg-white/70 backdrop-blur-xl border border-white/80 p-10 text-left transition-all duration-500 rounded-[2rem] hover:-translate-y-2 hover:bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-10px_rgba(99,102,241,0.2)]"
               >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-400/10 to-purple-500/10 blur-[40px] rounded-full group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-                
+
                 <div className="relative z-10 w-full">
                   <div className="w-14 h-14 rounded-2xl border-0 bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center mb-8 shadow-inner group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                     <History className="w-6 h-6 text-indigo-600 group-hover:text-indigo-500 transition-colors" />
@@ -263,14 +263,14 @@ export default function AIEvaluationLandingPage() {
               </motion.button>
             </div>
 
-            <motion.div 
+            <motion.div
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                transition={{ duration: 1, delay: 1 }}
                className="mt-16 text-center"
             >
               <p className="text-[11px] text-slate-400 font-semibold tracking-[0.2em] uppercase">
-                SIRIUS v2.4 &middot; Powered by Claude Sonnet 4.6
+                유선화 제작 &middot; Powered by Claude Sonnet 4.6
               </p>
             </motion.div>
           </div>
@@ -279,4 +279,3 @@ export default function AIEvaluationLandingPage() {
     </div>
   )
 }
-
